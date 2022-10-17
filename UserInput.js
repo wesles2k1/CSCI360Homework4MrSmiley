@@ -14,7 +14,7 @@ canvas.addEventListener("keydown", UserInput);
 
 const SCROLL_RATE = 5;
 const XMIN = 0
-const XMAX = -2750
+const XMAX = -2500
 
 function UserInput(evnt){
     let key = evnt.key;
