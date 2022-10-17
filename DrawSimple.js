@@ -2,13 +2,65 @@
 
 // This file contains derived drawable objects
 
+class Circle extends Shape {
+
+   constructor() {
+      super();
+      this.Reset()
+   }
+
+   Reset() {
+      super.Reset() 
+   }
+
+}
+
+class RightTriangle extends Shape {
+
+   constructor() {
+      super();
+      this.Reset()
+   }
+
+   Reset() {
+      super.Reset() 
+   }
+
+}
+
+class Rectangle extends Shape {
+
+   constructor() {
+      super();
+      this.Reset()
+   }
+
+   Reset() {
+      super.Reset() 
+   }
+
+}
+
+class Star extends Shape {
+
+   constructor() {
+      super();
+      this.Reset()
+   }
+
+   Reset() {
+      super.Reset() 
+   }
+
+}
+
 // Bennett's code, good starting point.
 // I would write new stuff above this comment to keep
 // it separate from everything below, keeping the
 // following to use as a reference.
 class Plus extends Shape {
 
-    constructor() {
+   constructor() {
       super();
    }
 
@@ -43,7 +95,7 @@ class Polygon extends Shape {
       super.Reset() 
    }
 
-   DrawObject(ctx) {
+   DrawObject() {
       ctx.beginPath();
       ctx.moveTo(this.#points[0].x, this.#points[0].y);
       for(let i =1; i < this.#points.length; ++i) {
