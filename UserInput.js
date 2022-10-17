@@ -16,8 +16,8 @@ const SCROLL_RATE = 5;
 const XMIN = 0
 const XMAX = -2500
 
-function UserInput(evnt){
-    let key = evnt.key;
+function UserInput(event){
+    let key = event.key;
     let stopMove = true;
 
     switch(key) {

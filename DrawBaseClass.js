@@ -73,7 +73,7 @@ class Shape {
         CTX.fillStyle = this.#fillColor;
         CTX.strokeStyle = this.#lineColor;
 
-        this.DrawObject(CTX);
+        this.DrawObject();
 
         CTX.restore();
     }
