@@ -13,6 +13,13 @@ class Circle extends Shape {
       super.Reset() 
    }
 
+   DrawObject(){
+      CTX.beginPath()
+      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2)
+      CTX.arc(0,0,1,0,2 * Math.PI)
+      CTX.stroke()
+   }
+
 }
 
 class RightTriangle extends Shape {
@@ -102,6 +109,7 @@ class Polygon extends Shape {
          CTX.lineTo(this.#points[i].x,this.#points[i].y);
       }
       CTX.lineTo(this.#points[0].x,this.#points[0].y);
+      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2)
       CTX.closePath()
       CTX.fill();
       CTX.stroke();

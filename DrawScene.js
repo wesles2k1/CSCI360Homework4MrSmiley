@@ -38,6 +38,11 @@ function BuildItems() {
     item4.Scale(12,12)
     item4.Translate(100,-100)
     items.push(item4)
+
+    let item5 = new Circle();
+    item5.lineColor = "green"
+    item5.Scale(50,50)
+    items.push(item5)
 }
 
 function DrawScene() {
