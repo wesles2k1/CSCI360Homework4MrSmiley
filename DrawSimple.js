@@ -36,16 +36,35 @@ class RightTriangle extends Shape {
 }
 
 class Rectangle extends Shape {
-
+   #DELTA = Math.PI/2
+   #points = []
    constructor() {
       super();
       this.Reset()
+      
+      for(let i=0; i <= 4;i++){
+         let theta = (Math.PI/4) + i*this.#DELTA
+         let point = {x:Math.cos(theta), y:Math.sin(theta)}
+         this.#points.push(point)
+      }
    }
 
    Reset() {
       super.Reset() 
    }
 
+   DrawObject(){
+      CTX.beginPath()
+      CTX.moveTo(this.#points[0].x, this.#points[0].y)
+      for(let i=1; i <= 4;i++){
+         CTX.lineTo(this.#points[i].x,this.#points[i].y)
+      }
+      CTX.lineTo(this.#points[0].x,this.#points[0].y);
+      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2)
+      CTX.closePath()
+      CTX.fill();
+      CTX.stroke();
+   }
 }
 
 class Star extends Shape {

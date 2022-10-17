@@ -52,6 +52,13 @@ function BuildItems() {
     item6.Scale(60,60)
     item6.Translate(190,190)
     items.push(item6)
+
+    let item7 = new Rectangle();
+    item7.lineColor = "Blue"
+    item7.fillColor = "red"
+    item7.Scale(60,80)
+    item7.Translate(-120,-180)
+    items.push(item7)
 }
 
 function DrawScene() {
