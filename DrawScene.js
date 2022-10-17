@@ -41,8 +41,17 @@ function BuildItems() {
 
     let item5 = new Circle();
     item5.lineColor = "green"
+    item5.fillColor = "rgba(0,0,0,0)"
     item5.Scale(50,50)
     items.push(item5)
+
+    let item6 = new Star();
+    item6.lineColor = "Blue"
+    item6.fillColor = "rgba(0,0,0,0)"
+    item6.Rotate(90)
+    item6.Scale(60,60)
+    item6.Translate(190,190)
+    items.push(item6)
 }
 
 function DrawScene() {

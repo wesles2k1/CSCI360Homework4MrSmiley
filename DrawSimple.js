@@ -49,16 +49,36 @@ class Rectangle extends Shape {
 }
 
 class Star extends Shape {
-
+   #starPoints = [0,2,4,1,3,0]
+   #DELTA = (2*Math.PI)/5
+   #points = []
    constructor() {
       super();
       this.Reset()
+
+      for(let i=0; i <= 5;i++){
+         let theta = this.#starPoints[i]*this.#DELTA
+         let point = {x:Math.cos(theta), y:Math.sin(theta)}
+         this.#points.push(point)
+      }
    }
 
    Reset() {
       super.Reset() 
    }
 
+   DrawObject(){
+      CTX.beginPath()
+      CTX.moveTo(this.#points[0].x, this.#points[0].y)
+      for(let i=1; i <= 5;i++){
+         CTX.lineTo(this.#points[i].x,this.#points[i].y)
+      }
+      CTX.lineTo(this.#points[0].x,this.#points[0].y);
+      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2)
+      CTX.closePath()
+      CTX.fill();
+      CTX.stroke();
+   }
 }
 
 // Bennett's code, good starting point.
