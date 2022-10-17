@@ -3,10 +3,7 @@
 // This file will use the classes to draw objects
 // into the world and create a scene
 
-// Bennett's code, good starting point.
-// I would write new stuff above this comment to keep
-// it separate from everything below, keeping the
-// following to use as a reference.const canvas = document.getElementById("theCanvas")
+// "BuildItems" is from Bennett, I haven't looked at it closely yet ~Wesley
 function BuildItems() {
 
     let item0 = new Polygon();
@@ -44,15 +41,31 @@ function BuildItems() {
     items.push(item3);
 }
 
+function DrawScene() {
+    ctx.clearRect(0, 0, width, height);
+    ctx.save();
+
+    ctx.setTransform(1, 0, 0, -1, canvas.width/2, canvas.height/2); // Base world orientation
+    
+    ctx.translate(worldTx, 0);
+
+    for (let i=0; i < items.length; ++i ) {
+        items[i].Display(ctx);
+    }
+
+    ctx.restore();
+
+    Axis(); // Eventually replace with MrSmiley since that and Axis are both constant reletive to viewer
+}
+
 function Axis() {
-   let halfW = canvas.width/2;
-   let halfH = canvas.height/2;
-   ctx.lineStyle = "black";
+    ctx.strokeStyle = "black";
+    ctx.beginPath();
 
-   ctx.moveTo(-halfW,0);
-   ctx.lineTo(halfW,0);
-   ctx.moveTo(0, -halfH);
-   ctx.lineTo(0, halfH);
+    ctx.moveTo(0, height/2);
+    ctx.lineTo(width,height/2);
 
-   ctx.stroke();
+    ctx.moveTo(width/2,0);
+    ctx.lineTo(width/2,height);
+    ctx.stroke();
 }
