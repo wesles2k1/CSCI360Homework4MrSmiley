@@ -10,7 +10,7 @@ function BuildItems() {
 
     items.push(item0);
 
-    let item1 = new  Polygon(4)
+    let item1 = new Polygon(4)
     item1.Scale(3, 3);
     item1.Rotate(30);
     item1.Translate(50,50);
@@ -18,16 +18,7 @@ function BuildItems() {
     item1.fillColor = "green";
     items.push(item1);
 
-    // just to show I can
-    console.log(item1.scaleX);
-    // uses the getter
-    console.log(item1.lineColor);
-
-    // and I can't
-    //console.log(item1.#points)
-    //console.log(item1.#lineColor);
-
-    let item2 = new  Polygon(8)
+    let item2 = new Polygon(8)
     item2.Scale(4,4);
     item2.Rotate(10);
     item2.Translate(-80,80);
@@ -50,7 +41,7 @@ function DrawScene() {
     ctx.translate(worldTx, 0);
 
     for (let i=0; i < items.length; ++i ) {
-        items[i].Display(ctx);
+        items[i].Display();
     }
 
     ctx.restore();

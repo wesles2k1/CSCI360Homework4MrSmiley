@@ -4,33 +4,47 @@
 // drawable objects to be derived from
 
 // Based off of code by Dan Bennett
-class Drawable {
-        translateX;
-        translateY;
-        rotate;
-        scaleX;
-        scaleY;
-        #lineColor;
-        fillColor;
+class Shape {
+    translateX;
+    translateY;
+    rotate; // In Radians
+    scaleX;
+    scaleY;
+    #lineColor;
+    #fillColor;
 
     constructor() {
         this.Reset();
     }
 
-    set lineColor( value) {
-       this.#lineColor = value; 
+    Translate(tx, ty) {
+        this.translateX = tx;
+        this.translateY = ty;
+    }
+
+    Rotate(theta) {
+        this.rotate = theta * Math.PI / 180;
+    }
+
+    Scale(sx,sy) {
+        this.scaleX = sx;
+        this.scaleY = sy;
+    }
+
+    set lineColor(value) {
+    this.#lineColor = value; 
     }
 
     get lineColor() {
-       return this.#lineColor;
+        return this.#lineColor;
     }
 
     set fillColor(value) {
-       this.fillColor = value;
+    this.#fillColor = value;
     }
 
     get fillColor() {
-        return this.fillColor;
+        return this.#fillColor;
     }
 
     Reset() {
@@ -46,35 +60,21 @@ class Drawable {
     Tick() {
     }
 
-    Scale(sx,sy) {
-        this.scaleX = sx;
-        this.scaleY = sy;
+    DrawObject() {
     }
 
-    Rotate(theta) {
-        this.rotate = theta;
-    }
+    Display() {
+        ctx.save();
 
-    Translate(tx, ty) {
-        this.translateX = tx;
-        this.translateY = ty;
-    }
+        ctx.translate(this.translateX, this.translateY);
+        ctx.scale(this.scaleX, this.scaleY);
+        ctx.rotate(this.rotate);
 
-    DrawObject(ctx) {
-    }
+        ctx.fillStyle = this.#fillColor;
+        ctx.strokeStyle = this.#lineColor;
 
-    Display(ctx) {
-       ctx.save();
+        this.DrawObject(ctx);
 
-       ctx.translate(this.translateX, this.translateY);
-       ctx.scale(this.scaleX, this.scaleY);
-       ctx.rotate(this.rotate);
-
-       ctx.fillStyle = this.fillColor;
-       ctx.strokeStyle = this.lineColor;
- 
-       this.DrawObject(ctx);
-
-       ctx.restore();
+        ctx.restore();
     }
 }
