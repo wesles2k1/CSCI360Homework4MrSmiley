@@ -30,6 +30,14 @@ function BuildItems() {
     item3.lineColor = "red";
     item3.Translate(-20, -20);
     items.push(item3);
+
+    let item4 = new Polygon(9)
+    item4.lineColor = "red"
+    item4.fillColor = "rgba(0,0,0,0)"
+    item4.Rotate(90)
+    item4.Scale(12,12)
+    item4.Translate(100,-100)
+    items.push(item4)
 }
 
 function DrawScene() {

@@ -102,6 +102,7 @@ class Polygon extends Shape {
          ctx.lineTo(this.#points[i].x,this.#points[i].y);
       }
       ctx.lineTo(this.#points[0].x,this.#points[0].y);
+      ctx.closePath()
       ctx.fill();
       ctx.stroke();
    }
