@@ -6,10 +6,10 @@
 const FPS = 60;
 const REFRESH_RATE = 1000/FPS;
 
-const canvas = document.getElementById("theCanvas");
-const ctx = canvas.getContext("2d");
-let width = canvas.width;
-let height = canvas.height;
+const CANVAS = document.getElementById("theCanvas");
+const CTX = CANVAS.getContext("2d");
+let width = CANVAS.width;
+let height = CANVAS.height;
 
 let timer = null;
 let items = [];

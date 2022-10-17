@@ -65,12 +65,12 @@ class Plus extends Shape {
    }
 
    DrawObject() {
-      ctx.beginPath();
-      ctx.moveTo(-10,0);
-      ctx.lineTo(10,0);
-      ctx.moveTo(0,-10);
-      ctx.lineTo(0,10);
-      ctx.stroke();
+      CTX.beginPath();
+      CTX.moveTo(-10,0);
+      CTX.lineTo(10,0);
+      CTX.moveTo(0,-10);
+      CTX.lineTo(0,10);
+      CTX.stroke();
    }
 }
 
@@ -96,14 +96,14 @@ class Polygon extends Shape {
    }
 
    DrawObject() {
-      ctx.beginPath();
-      ctx.moveTo(this.#points[0].x, this.#points[0].y);
+      CTX.beginPath();
+      CTX.moveTo(this.#points[0].x, this.#points[0].y);
       for(let i =1; i < this.#points.length; ++i) {
-         ctx.lineTo(this.#points[i].x,this.#points[i].y);
+         CTX.lineTo(this.#points[i].x,this.#points[i].y);
       }
-      ctx.lineTo(this.#points[0].x,this.#points[0].y);
-      ctx.closePath()
-      ctx.fill();
-      ctx.stroke();
+      CTX.lineTo(this.#points[0].x,this.#points[0].y);
+      CTX.closePath()
+      CTX.fill();
+      CTX.stroke();
    }
 }

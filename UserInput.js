@@ -9,8 +9,8 @@
 // "g" = turn on animation
 // "h" = turn off animation
 
-canvas.tabIndex = 0;
-canvas.addEventListener("keydown", UserInput);
+CANVAS.tabIndex = 0;
+CANVAS.addEventListener("keydown", UserInput);
 
 const SCROLL_RATE = 5;
 const XMIN = 0

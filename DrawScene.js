@@ -41,30 +41,30 @@ function BuildItems() {
 }
 
 function DrawScene() {
-    ctx.clearRect(0, 0, width, height);
-    ctx.save();
+    CTX.clearRect(0, 0, width, height);
+    CTX.save();
 
-    ctx.setTransform(1, 0, 0, -1, canvas.width/2, canvas.height/2); // Base world orientation
+    CTX.setTransform(1, 0, 0, -1, CANVAS.width/2, CANVAS.height/2); // Base world orientation
     
-    ctx.translate(worldTx, 0);
+    CTX.translate(worldTx, 0);
 
     for (let i=0; i < items.length; ++i ) {
         items[i].Display();
     }
 
-    ctx.restore();
+    CTX.restore();
 
     Axis(); // Eventually replace with MrSmiley since that and Axis are both constant reletive to viewer
 }
 
 function Axis() {
-    ctx.strokeStyle = "black";
-    ctx.beginPath();
+    CTX.strokeStyle = "black";
+    CTX.beginPath();
 
-    ctx.moveTo(0, height/2);
-    ctx.lineTo(width,height/2);
+    CTX.moveTo(0, height/2);
+    CTX.lineTo(width,height/2);
 
-    ctx.moveTo(width/2,0);
-    ctx.lineTo(width/2,height);
-    ctx.stroke();
+    CTX.moveTo(width/2,0);
+    CTX.lineTo(width/2,height);
+    CTX.stroke();
 }

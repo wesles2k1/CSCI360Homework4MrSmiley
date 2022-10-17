@@ -64,17 +64,17 @@ class Shape {
     }
 
     Display() {
-        ctx.save();
+        CTX.save();
 
-        ctx.translate(this.translateX, this.translateY);
-        ctx.scale(this.scaleX, this.scaleY);
-        ctx.rotate(this.rotate);
+        CTX.translate(this.translateX, this.translateY);
+        CTX.scale(this.scaleX, this.scaleY);
+        CTX.rotate(this.rotate);
 
-        ctx.fillStyle = this.#fillColor;
-        ctx.strokeStyle = this.#lineColor;
+        CTX.fillStyle = this.#fillColor;
+        CTX.strokeStyle = this.#lineColor;
 
-        this.DrawObject(ctx);
+        this.DrawObject(CTX);
 
-        ctx.restore();
+        CTX.restore();
     }
 }
