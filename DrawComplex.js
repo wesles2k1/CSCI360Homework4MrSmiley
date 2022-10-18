@@ -73,8 +73,7 @@ class Structure {
     }
 }
 
-// Mr. Smiley (Circles, a curve, and series of lines)
-class MrSmiley extends Structure {
+class Person extends Structure {
 
     constructor() {
         super();

@@ -68,7 +68,7 @@ function BuildShapes() {
 }
 
 function BuildItems(){
-    let mrSmileyInTheFlesh = new MrSmiley();
+    let mrSmileyInTheFlesh = new Person();
     items.push(mrSmileyInTheFlesh);
 }
 
@@ -85,7 +85,7 @@ function DrawScene() {
             }
         CTX.restore();
 
-        let theManHimself = new MrSmiley()
+        let theManHimself = new Person()
         theManHimself.Display()
     CTX.restore();
     
