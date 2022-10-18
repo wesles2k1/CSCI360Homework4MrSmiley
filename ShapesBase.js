@@ -1,9 +1,9 @@
 "use strict"
 
 // This file contains the base class for
-// drawable objects to be derived from
+// shapes to be derived from
 
-// Based off of code by Dan Bennett
+// Modified code originally by Dan Bennett
 class Shape {
     translateX;
     translateY;

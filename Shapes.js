@@ -1,6 +1,6 @@
 "use strict"
 
-// This file contains derived drawable objects
+// This file contains derived shapes
 
 class Circle extends Shape {
 
