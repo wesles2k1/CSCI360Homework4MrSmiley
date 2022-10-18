@@ -46,6 +46,9 @@ class Structure {
     Tick() {
     }
 
+    DrawLines(){
+    }
+
     DrawStructure() {
         for (let i=0; i < this.structures.length; ++i ) {
             this.structures[i].DrawStructure();
@@ -53,6 +56,8 @@ class Structure {
         for (let i=0; i < this.shapes.length; ++i ) {
             this.shapes[i].Display();
         }
+
+        this.DrawLines()
     }
 
     Display() {
@@ -95,11 +100,36 @@ class MrSmiley extends Structure {
         leftEye.Scale(0.75,0.75);
         this.shapes.push(leftEye);
 
-        this.shapes.forEach(element => {element.Translate(element.translateX,element.translateY+90)});
+        this.shapes.forEach(element => {element.Translate(element.translateX,element.translateY+100)});
     }
 
     Reset() {
         super.Reset();
+    }
+
+    DrawLines(){
+        CTX.beginPath()
+
+        //Smile!
+        CTX.arc(0,100,15,(11*Math.PI)/6,(7*Math.PI)/6,true);
+
+        //Torso
+        CTX.moveTo(0,0)
+        CTX.lineTo(0,100-25)
+
+        //Arms
+        CTX.moveTo(0,60)
+        CTX.lineTo(25,40)
+        CTX.moveTo(0,60)
+        CTX.lineTo(-25,40)
+
+        //Legs
+        CTX.moveTo(0,0)
+        CTX.lineTo(-50*Math.cos(4*Math.PI/3),50*Math.sin(4*Math.PI/3))
+        CTX.moveTo(0,0)
+        CTX.lineTo(50*Math.cos(4*Math.PI/3),50*Math.sin(4*Math.PI/3))
+
+        CTX.stroke()
     }
 }
 
