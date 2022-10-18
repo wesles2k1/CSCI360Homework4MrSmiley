@@ -11,8 +11,9 @@ const REFRESH_RATE = 1000/FPS;
 
 const CANVAS = document.getElementById("theCanvas");
 const CTX = CANVAS.getContext("2d");
-let width = CANVAS.width;
-let height = CANVAS.height;
+const WIDTH = CANVAS.width;
+const HEIGHT = CANVAS.height;
+const HORIZON = HEIGHT/3
 
 let timer = null;
 let items = [];
