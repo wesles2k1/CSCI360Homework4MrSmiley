@@ -61,7 +61,30 @@ class Person extends Structure {
     }
 }
 
-// Sky (Rectangle and array of > 100 stars)
+class Sky extends Structure {
+    numberOfStars = 50;
+    #stars = [];
+
+    constructor() {
+        super();
+        this.Reset();
+
+        for(let i = 0; i < this.numberOfStars; i++) {
+            let star = new Star();
+            star.Translate((CANVAS.width * Math.random()) - (CANVAS.width / 2), (CANVAS.height * Math.random()) - (CANVAS.height / 2)) // Make sure to fit world size, not canvas
+            this.#stars.push(star);
+        }
+    }
+
+    Reset() {
+        super.Reset();
+    }
+
+    DrawLines(){
+        this.#stars.forEach(element => {element.Display()});
+    }
+}
+
 // Ground (Rectangle)
 // Fence (Array of rectangles)
 // House (Rectangles and right triangle)

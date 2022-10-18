@@ -72,6 +72,11 @@ function BuildItems(){
     items.push(mrSmileyInTheFlesh);
 }
 
+function BuildScene() {
+    let sky = new Sky();
+    items.push(sky);
+}
+
 function DrawScene() {
     CTX.clearRect(0, 0, width, height);
     CTX.save();
@@ -79,6 +84,8 @@ function DrawScene() {
         CTX.save();
             
             CTX.translate(worldTx, 0);
+
+            BuildScene();
 
             for (let i=0; i < items.length; ++i ) {
                 items[i].Display();
@@ -90,7 +97,6 @@ function DrawScene() {
         theManHimself.Translate(0, -50);
         theManHimself.Display()
     CTX.restore();
-    
 }
 
 function Axis() {
