@@ -82,10 +82,12 @@ function DrawScene() {
     for (let i=0; i < items.length; ++i ) {
         items[i].Display();
     }
-
+    let theManHimself = new MrSmiley()
+    theManHimself.Display()
     CTX.restore();
 
-    Axis(); // Eventually replace with MrSmiley since that and Axis are both constant reletive to viewer
+    //Axis(); // Eventually replace with MrSmiley since that and Axis are both constant reletive to viewer
+    
 }
 
 function Axis() {

@@ -4,7 +4,7 @@
 // function calls
 
 const DEBUG_TURN_ON_SHAPES = false
-const DEBUG_TURN_ON_ITEMS = true
+const DEBUG_TURN_ON_ITEMS = false
 
 const FPS = 60;
 const REFRESH_RATE = 1000/FPS;

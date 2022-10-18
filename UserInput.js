@@ -3,6 +3,9 @@
 // This file contains user input functionality
 // so that they may scroll through the world
 
+//The way this works is by moving everything except
+//Mr. Smiley the opposite direction of the key.
+
 // Input:
 // "a" = scroll left
 // "s" = scroll right
