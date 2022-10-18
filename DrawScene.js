@@ -4,7 +4,8 @@
 // into the world and create a scene
 
 // "BuildItems" is from Bennett, I haven't looked at it closely yet ~Wesley
-function BuildItems() {
+// There's not much to look at. It's just a playground for us to fuck around with shapes - M
+function BuildShapes() {
     let item0 = new Polygon();
     items.push(item0);
 
@@ -64,10 +65,12 @@ function BuildItems() {
     item8.Translate(120,-120)
     items.push(item8)
 
+}
+
+function BuildItems(){
     let mrSmileyInTheFlesh = new MrSmiley();
     items.push(mrSmileyInTheFlesh);
 }
-
 function DrawScene() {
     CTX.clearRect(0, 0, width, height);
     CTX.save();

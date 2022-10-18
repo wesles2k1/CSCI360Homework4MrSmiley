@@ -3,6 +3,9 @@
 // This file contains global variables and initial
 // function calls
 
+const DEBUG_TURN_ON_SHAPES = false
+const DEBUG_TURN_ON_ITEMS = true
+
 const FPS = 60;
 const REFRESH_RATE = 1000/FPS;
 
@@ -26,5 +29,10 @@ function StopTicks() {
     }
 }
 
-BuildItems();
+if(DEBUG_TURN_ON_SHAPES){
+    BuildShapes();
+}
+if(DEBUG_TURN_ON_ITEMS){
+    BuildItems();
+}
 DrawScene();
