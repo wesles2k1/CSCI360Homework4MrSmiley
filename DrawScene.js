@@ -73,8 +73,18 @@ function BuildItems(){
 }
 
 function BuildScene() {
-    let sky = new Sky();
-    items.push(sky);
+    if(items.length == 0){
+        let sky = new Sky();
+        items.push(sky);
+    }else{
+        items.forEach(element => {
+            if(!(element instanceof Sky)){
+                let sky = new Sky();
+                items.push(sky);
+            }
+        });
+    }
+        
 }
 
 function DrawScene() {
