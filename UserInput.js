@@ -20,7 +20,7 @@ const XMIN = 0
 const XMAX = -2500
 
 function UserInput(event){
-    let key = event.key;
+    let key = event.key.toLowerCase();
     let stopMove = true;
 
     switch(key) {
