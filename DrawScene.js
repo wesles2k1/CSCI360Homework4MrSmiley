@@ -5,9 +5,7 @@
 
 // "BuildItems" is from Bennett, I haven't looked at it closely yet ~Wesley
 function BuildItems() {
-
     let item0 = new Polygon();
-
     items.push(item0);
 
     let item1 = new Polygon(4)
@@ -42,23 +40,27 @@ function BuildItems() {
     let item5 = new Circle();
     item5.lineColor = "green"
     item5.fillColor = "rgba(0,0,0,0)"
-    item5.Scale(50,50)
+    item5.Scale(10,10)
     items.push(item5)
 
     let item6 = new Star();
     item6.lineColor = "Blue"
     item6.fillColor = "rgba(0,0,0,0)"
     item6.Rotate(90)
-    item6.Scale(60,60)
-    item6.Translate(190,190)
+    item6.Scale(10,10)
+    //item6.Translate(190,190)
     items.push(item6)
 
     let item7 = new Rectangle();
     item7.lineColor = "Blue"
-    item7.fillColor = "red"
-    item7.Scale(60,80)
-    item7.Translate(-120,-180)
+    item7.fillColor = "rgba(0,0,0,0)"
+    item7.Scale(10, 10)
+    //item7.Scale(6,8)
+    //item7.Translate(-120,-180)
     items.push(item7)
+
+    let mrSmileyInTheFlesh = new MrSmiley();
+    items.push(mrSmileyInTheFlesh);
 }
 
 function DrawScene() {

@@ -6,18 +6,19 @@ class Circle extends Shape {
 
    constructor() {
       super();
-      this.Reset()
+      this.Reset();
    }
 
    Reset() {
-      super.Reset() 
+      super.Reset();
    }
 
    DrawObject(){
-      CTX.beginPath()
-      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2)
-      CTX.arc(0,0,1,0,2 * Math.PI)
-      CTX.stroke()
+      CTX.beginPath();
+      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2);
+      CTX.arc(0,0,5,0,2 * Math.PI);
+      CTX.fill();
+      CTX.stroke();
    }
 
 }
@@ -26,16 +27,37 @@ class RightTriangle extends Shape {
 
    constructor() {
       super();
-      this.Reset()
+      this.Reset();
    }
 
    Reset() {
-      super.Reset() 
+      super.Reset();
    }
 
 }
 
 class Rectangle extends Shape {
+
+   constructor() {
+      super();
+      this.Reset();
+   }
+
+   Reset() {
+      super.Reset();
+   }
+
+   DrawObject(){
+      CTX.beginPath();
+      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2);
+      CTX.rect(-5, -5, 10, 10);
+      CTX.fill();
+      CTX.stroke();
+   }
+}
+
+// Polar Rectangle, may be deleted (Gets weird with scaling)
+/*class Rectangle extends Shape {
    #DELTA = Math.PI/2
    #points = []
    constructor() {
@@ -65,36 +87,37 @@ class Rectangle extends Shape {
       CTX.fill();
       CTX.stroke();
    }
-}
+}*/
 
 class Star extends Shape {
-   #starPoints = [0,2,4,1,3,0]
-   #DELTA = (2*Math.PI)/5
-   #points = []
+   #starPoints = [0,2,4,1,3,0];
+   #DELTA = (2*Math.PI)/5;
+   #points = [];
+
    constructor() {
       super();
-      this.Reset()
+      this.Reset();
 
       for(let i=0; i <= 5;i++){
-         let theta = this.#starPoints[i]*this.#DELTA
-         let point = {x:Math.cos(theta), y:Math.sin(theta)}
-         this.#points.push(point)
+         let theta = this.#starPoints[i]*this.#DELTA;
+         let point = {x:5*Math.cos(theta), y:5*Math.sin(theta)};
+         this.#points.push(point);
       }
    }
 
    Reset() {
-      super.Reset() 
+      super.Reset();
    }
 
    DrawObject(){
-      CTX.beginPath()
-      CTX.moveTo(this.#points[0].x, this.#points[0].y)
+      CTX.beginPath();
+      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2);
+      CTX.moveTo(this.#points[0].x, this.#points[0].y);
       for(let i=1; i <= 5;i++){
-         CTX.lineTo(this.#points[i].x,this.#points[i].y)
+         CTX.lineTo(this.#points[i].x,this.#points[i].y);
       }
       CTX.lineTo(this.#points[0].x,this.#points[0].y);
-      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2)
-      CTX.closePath()
+      CTX.closePath();
       CTX.fill();
       CTX.stroke();
    }
