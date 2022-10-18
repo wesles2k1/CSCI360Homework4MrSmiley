@@ -2,6 +2,10 @@
 
 // Make classes (not derived from "Shape") to
 // use derived shapes to draw complex objects
+
+//"Structure" is used here as a way to composite 
+//all of the simple shapes and transform them as
+//one unit, instead of trying to transform each.
 class Structure {
     translateX;
     translateY;
@@ -90,6 +94,8 @@ class MrSmiley extends Structure {
         leftEye.Translate(10, 10);
         leftEye.Scale(0.75,0.75);
         this.shapes.push(leftEye);
+
+        this.shapes.forEach(element => {element.Translate(element.translateX,element.translateY+90)});
     }
 
     Reset() {
