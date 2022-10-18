@@ -34,6 +34,17 @@ class RightTriangle extends Shape {
       super.Reset();
    }
 
+   DrawObject(){
+      CTX.beginPath();
+      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2);
+      CTX.moveTo(0,0)
+      CTX.lineTo(Math.cos(2*Math.PI), Math.sin(2*Math.PI))
+      CTX.lineTo(Math.cos(Math.PI/2), Math.sin(Math.PI/2))
+      CTX.lineTo(0,0)
+      CTX.fill()
+      CTX.stroke()
+   }
+
 }
 
 class Rectangle extends Shape {

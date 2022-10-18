@@ -46,18 +46,23 @@ function BuildItems() {
     let item6 = new Star();
     item6.lineColor = "Blue"
     item6.fillColor = "rgba(0,0,0,0)"
-    item6.Rotate(90)
+    item6.Rotate(78)
     item6.Scale(10,10)
-    //item6.Translate(190,190)
+    item6.Translate(190,190)
     items.push(item6)
 
     let item7 = new Rectangle();
     item7.lineColor = "Blue"
     item7.fillColor = "rgba(0,0,0,0)"
     item7.Scale(10, 10)
-    //item7.Scale(6,8)
-    //item7.Translate(-120,-180)
+    item7.Scale(6,8)
+    item7.Translate(-120,-180)
     items.push(item7)
+
+    let item8 = new RightTriangle()
+    item8.Scale(100,100)
+    item8.Translate(120,-120)
+    items.push(item8)
 
     let mrSmileyInTheFlesh = new MrSmiley();
     items.push(mrSmileyInTheFlesh);
