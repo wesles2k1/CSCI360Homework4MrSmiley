@@ -73,6 +73,8 @@ function BuildItems(){
 }
 
 function BuildScene() {
+    //This works. It looks fucked up, but it sucessfuly 
+    //draws the sky Once and only Once. - M
     if(items.length == 0){
         let sky = new Sky();
         items.push(sky);

@@ -62,7 +62,7 @@ class Person extends Structure {
 }
 
 class Sky extends Structure {
-    numberOfStars = 50;
+    numberOfStars = 250;
     #stars = [];
 
     constructor() {
@@ -71,7 +71,7 @@ class Sky extends Structure {
 
         for(let i = 0; i < this.numberOfStars; i++) {
             let star = new Star();
-            star.Translate((CANVAS.width * Math.random()) - (CANVAS.width / 2), (CANVAS.height * Math.random()) - (CANVAS.height / 2)) // Make sure to fit world size, not canvas
+            star.Translate((3000 * Math.random()) - (width / 2), (height / 2) - ((height/3) * Math.random())) // Make sure to fit world size, not canvas
             this.#stars.push(star);
         }
     }
