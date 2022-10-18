@@ -71,22 +71,23 @@ function BuildItems(){
     let mrSmileyInTheFlesh = new MrSmiley();
     items.push(mrSmileyInTheFlesh);
 }
+
 function DrawScene() {
     CTX.clearRect(0, 0, width, height);
     CTX.save();
+        CTX.setTransform(1, 0, 0, -1, CANVAS.width/2, CANVAS.height/2); // Base world orientation
+        CTX.save();
+            
+            CTX.translate(worldTx, 0);
 
-    CTX.setTransform(1, 0, 0, -1, CANVAS.width/2, CANVAS.height/2); // Base world orientation
-    
-    CTX.translate(worldTx, 0);
+            for (let i=0; i < items.length; ++i ) {
+                items[i].Display();
+            }
+        CTX.restore();
 
-    for (let i=0; i < items.length; ++i ) {
-        items[i].Display();
-    }
-    let theManHimself = new MrSmiley()
-    theManHimself.Display()
+        let theManHimself = new MrSmiley()
+        theManHimself.Display()
     CTX.restore();
-
-    //Axis(); // Eventually replace with MrSmiley since that and Axis are both constant reletive to viewer
     
 }
 
