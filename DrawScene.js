@@ -81,13 +81,12 @@ function BuildScene() {
     items.push(ground)
 
     let couple = new Couple();
-    couple.shapes[1].FaceColor("pink")
+    let person1 = couple.shapes[0]
+    let person2 = couple.shapes[1]
+    person2.FaceColor("pink")
+    couple.SetHeight(1,10)
     items.push(couple);
 
-    let item8 = new RightTriangle() // Just to test out parallax
-    item8.Scale(5,5)
-    item8.Translate(120,-120)
-    items.push(item8)
     
 }
 
