@@ -119,12 +119,14 @@ class Ground extends Structure {
         super.Reset();
     }
 }
+
 // Fence (Array of rectangles)
 // House (Rectangles and right triangle)
 // School (Separate or just flip the house and different colors?)
 // Teeter totter (2 Mr. Smileys, a line, and a right triangle)
 // Swing (1 Mr. Smiley, series of lines)
 // Couple (2 Mr. Smileys)
+
 class Couple extends Structure {
     #path;
     

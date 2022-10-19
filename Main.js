@@ -3,8 +3,9 @@
 // This file contains global variables and initial
 // function calls
 
-const DEBUG_TURN_ON_SHAPES = false
-const DEBUG_TURN_ON_ITEMS = false
+// ****************
+// GLOBAL VARIABLES
+// ****************
 
 const FPS = 60; // Ticks/Frames per second
 const REFRESH_RATE = 1000/FPS;
@@ -30,6 +31,10 @@ let items = [];
 let worldTx = 0;
 let skyTx = 0;
 
+// *********
+// FUNCTIONS
+// *********
+
 function StartTicks() {
     timer = setInterval(DrawScene, REFRESH_RATE);
 }
@@ -41,11 +46,9 @@ function StopTicks() {
     }
 }
 
-if(DEBUG_TURN_ON_SHAPES){
-    BuildShapes();
-}
-if(DEBUG_TURN_ON_ITEMS){
-    BuildItems();
-}
+// *****
+// CALLS
+// *****
+
 BuildScene();
 DrawScene();
