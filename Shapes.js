@@ -133,6 +133,9 @@ class Star extends Shape {
       this.Rotate(this.#startRotate)
    }
 
+   //I don't care if this is over 30 lines. It works.
+   //Plus the stars look damn good, if I do say so
+   //myself. And I do. - M
    Tick(){
       const ROTATEDELTA = 1
       const SIZEDELTA = .02
