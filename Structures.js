@@ -3,29 +3,32 @@
 // This file contains derived structures
 
 class Person extends Structure {
+    head;
+    rightEye;
+    leftEye;
 
     constructor() {
         super();
         this.Reset();
-        let head = new Circle();
-        head.lineColor = "black";
-        head.fillColor = "yellow";
-        head.Scale(5,5);
-        this.shapes.push(head);
+        this.head = new Circle();
+        this.head.lineColor = "black";
+        this.head.fillColor = "yellow";
+        this.head.Scale(5,5);
+        this.shapes.push(this.head);
 
-        let rightEye = new Circle();
-        rightEye.lineColor = "black";
-        rightEye.fillColor = "blue";
-        rightEye.Translate(-10, 10);
-        rightEye.Scale(0.75,0.75);
-        this.shapes.push(rightEye);
+        this.rightEye = new Circle();
+        this.rightEye.lineColor = "black";
+        this.rightEye.fillColor = "blue";
+        this.rightEye.Translate(-10, 10);
+        this.rightEye.Scale(0.75,0.75);
+        this.shapes.push(this.rightEye);
 
-        let leftEye = new Circle();
-        leftEye.lineColor = "black";
-        leftEye.fillColor = "blue";
-        leftEye.Translate(10, 10);
-        leftEye.Scale(0.75,0.75);
-        this.shapes.push(leftEye);
+        this.leftEye = new Circle();
+        this.leftEye.lineColor = "black";
+        this.leftEye.fillColor = "blue";
+        this.leftEye.Translate(10, 10);
+        this.leftEye.Scale(0.75,0.75);
+        this.shapes.push(this.leftEye);
 
         this.shapes.forEach(element => {element.Translate(element.translateX,element.translateY+100)});
     }
@@ -57,6 +60,15 @@ class Person extends Structure {
         CTX.lineTo(50*Math.cos(4*Math.PI/3),50*Math.sin(4*Math.PI/3))
 
         CTX.stroke()
+    }
+
+    FaceColor(color) {
+        this.head.fillColor = color;
+    }
+
+    EyeColor(color) {
+        this.rightEye.fillColor = color;
+        this.leftEye.fillColor = color;
     }
 }
 
