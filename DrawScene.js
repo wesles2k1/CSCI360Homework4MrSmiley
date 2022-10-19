@@ -103,8 +103,8 @@ function DrawScene() {
         CTX.restore();
 
         let theManHimself = new Person()
-        theManHimself.Scale(0.75,0.75);
-        theManHimself.Translate(0, -50);
+        theManHimself.Scale(0.8,0.8);
+        theManHimself.Translate(0, -100);
         theManHimself.Display()
     CTX.restore();
 }
