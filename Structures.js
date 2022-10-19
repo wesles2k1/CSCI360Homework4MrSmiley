@@ -7,7 +7,6 @@ class Person extends Structure {
     constructor() {
         super();
         this.Reset();
-
         let head = new Circle();
         head.lineColor = "black";
         head.fillColor = "yellow";
@@ -71,9 +70,13 @@ class Sky extends Structure {
 
         for(let i = 0; i < this.numberOfStars; i++) {
             let star = new Star();
-            star.Translate((3000 * Math.random()) - (width / 2), (height / 2) - ((height/3) * Math.random())) // Make sure to fit world size, not canvas
+            star.Translate((3000 * Math.random()) - (WIDTH / 2), (HEIGHT / 2) - ((HORIZON * Math.random()))) // Make sure to fit world size, not canvas
             this.#stars.push(star);
         }
+    }
+
+    Tick(){
+        this.#stars.forEach(element => {element.Tick()})
     }
 
     Reset() {

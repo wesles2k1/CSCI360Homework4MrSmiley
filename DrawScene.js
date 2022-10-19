@@ -78,21 +78,13 @@ function BuildScene() {
     if(items.length == 0){
         let sky = new Sky();
         items.push(sky);
-    }else{
-        items.forEach(element => {
-            if(!(element instanceof Sky)){
-                let sky = new Sky();
-                items.push(sky);
-            }
-        });
     }
-        
 }
 
 function DrawScene() {
-    CTX.clearRect(0, 0, width, height);
+    CTX.clearRect(0, 0, WIDTH, HEIGHT);
     CTX.save();
-        CTX.setTransform(1, 0, 0, -1, CANVAS.width/2, CANVAS.height/2); // Base world orientation
+        CTX.setTransform(1, 0, 0, -1, WIDTH/2, HEIGHT/2); // Base world orientation
         CTX.save();
             
             CTX.translate(worldTx, 0);
@@ -101,6 +93,7 @@ function DrawScene() {
 
             for (let i=0; i < items.length; ++i ) {
                 items[i].Display();
+                items[i].Tick()
             }
         CTX.restore();
 

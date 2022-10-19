@@ -102,18 +102,40 @@ class Rectangle extends Shape {
 
 class Star extends Shape {
    #starPoints = [0,2,4,1,3,0];
-   #DELTA = (2*Math.PI)/5;
+   #STARDELTA = (2*Math.PI)/5;
    #points = [];
-
+   #startRotate = Math.random() * 360
+   #endRotate = Math.random() * 360
+   #clockwise 
    constructor() {
       super();
       this.Reset();
 
       for(let i=0; i <= 5;i++){
-         let theta = this.#starPoints[i]*this.#DELTA;
+         let theta = (this.#starPoints[i]*this.#STARDELTA);
          let point = {x:5*Math.cos(theta), y:5*Math.sin(theta)};
          this.#points.push(point);
       }
+      if(this.#startRotate > this.#endRotate){
+         this.#endRotate = [this.#startRotate, this.#startRotate = this.#endRotate][0];
+      }
+      this.Rotate(this.#startRotate)
+   }
+
+   Tick(){
+      let delta = 1
+      let top = this.rotate * 180/Math.PI
+      if(top >= this.#endRotate){
+         this.#clockwise = false
+      } else if (top <= this.#startRotate){
+         this.#clockwise = true
+      }
+      if(this.#clockwise){
+         this.Rotate(delta)
+      }else{
+         this.Rotate(-delta)
+      }
+
    }
 
    Reset() {
