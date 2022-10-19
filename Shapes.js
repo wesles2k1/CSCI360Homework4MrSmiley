@@ -67,39 +67,6 @@ class Rectangle extends Shape {
    }
 }
 
-// Polar Rectangle, may be deleted (Gets weird with scaling)
-/*class Rectangle extends Shape {
-   #DELTA = Math.PI/2
-   #points = []
-   constructor() {
-      super();
-      this.Reset()
-      
-      for(let i=0; i <= 4;i++){
-         let theta = (Math.PI/4) + i*this.#DELTA
-         let point = {x:Math.cos(theta), y:Math.sin(theta)}
-         this.#points.push(point)
-      }
-   }
-
-   Reset() {
-      super.Reset() 
-   }
-
-   DrawObject(){
-      CTX.beginPath()
-      CTX.moveTo(this.#points[0].x, this.#points[0].y)
-      for(let i=1; i <= 4;i++){
-         CTX.lineTo(this.#points[i].x,this.#points[i].y)
-      }
-      CTX.lineTo(this.#points[0].x,this.#points[0].y);
-      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2)
-      CTX.closePath()
-      CTX.fill();
-      CTX.stroke();
-   }
-}*/
-
 class Star extends Shape {
    #starPoints = [0,2,4,1,3,0];
    #STARDELTA = (2*Math.PI)/5;
@@ -131,6 +98,9 @@ class Star extends Shape {
          this.#endSize = [this.#startSize, this.#startSize = this.#endSize][0];
       }
       this.Rotate(this.#startRotate)
+
+      let startScale = this.#startSize + (Math.random() * (this.#endSize - this.#startSize));
+      this.Scale(startScale, startScale);
    }
 
    //I don't care if this is over 30 lines. It works.
@@ -179,61 +149,6 @@ class Star extends Shape {
       }
       CTX.lineTo(this.#points[0].x,this.#points[0].y);
       CTX.closePath();
-      CTX.fill();
-      CTX.stroke();
-   }
-}
-
-// Bennett's code, good starting point.
-// I would write new stuff above this comment to keep
-// it separate from everything below, keeping the
-// following to use as a reference.
-class Plus extends Shape {
-
-   constructor() {
-      super();
-   }
-
-   DrawObject() {
-      CTX.beginPath();
-      CTX.moveTo(-10,0);
-      CTX.lineTo(10,0);
-      CTX.moveTo(0,-10);
-      CTX.lineTo(0,10);
-      CTX.stroke();
-   }
-}
-
-class Polygon extends Shape {
-   #points = [];
-
-   constructor(sides=3) {
-      super();
-      this.Reset()
-      if (sides < 3) {
-         sides = 3;
-      }
-
-      for (let i = 0; i < sides; ++i) {
-         let angle = 360 / sides * i * Math.PI / 180;
-         let point = {x: 10*Math.cos(angle), y:10*Math.sin(angle)};
-         this.#points.push(point);
-      }
-   }
-
-   Reset() {
-      super.Reset() 
-   }
-
-   DrawObject() {
-      CTX.beginPath();
-      CTX.moveTo(this.#points[0].x, this.#points[0].y);
-      for(let i =1; i < this.#points.length; ++i) {
-         CTX.lineTo(this.#points[i].x,this.#points[i].y);
-      }
-      CTX.lineTo(this.#points[0].x,this.#points[0].y);
-      CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2)
-      CTX.closePath()
       CTX.fill();
       CTX.stroke();
    }

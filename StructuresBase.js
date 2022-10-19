@@ -53,11 +53,12 @@ class Structure {
     }
 
     DrawStructure() {
-        for (let i=0; i < this.structures.length; ++i ) {
-            this.structures[i].DrawStructure();
-        }
+        
         for (let i=0; i < this.shapes.length; ++i ) {
             this.shapes[i].Display();
+        }
+        for (let i=0; i < this.structures.length; ++i ) {
+            this.structures[i].Display();
         }
 
         this.DrawLines()

@@ -119,12 +119,14 @@ class Ground extends Structure {
         super.Reset();
     }
 }
+
 // Fence (Array of rectangles)
 // House (Rectangles and right triangle)
 // School (Separate or just flip the house and different colors?)
 // Teeter totter (2 Mr. Smileys, a line, and a right triangle)
 // Swing (1 Mr. Smiley, series of lines)
 // Couple (2 Mr. Smileys)
+
 class Couple extends Structure {
     #path;
     
@@ -136,20 +138,18 @@ class Couple extends Structure {
             {x: -25, y: 25},
             {x: -25, y: -25},
             {x: 25, y: -25},
-            {x: 25, y: -25}
+            {x: 25, y: 25}
         ]
 
         let person1 = new Person();
         person1.Scale(0.5,0.5);
         person1.Translate(-15,0);
-        this.shapes.push(person1);
+        this.structures.push(person1);
 
         let person2 = new Person();
         person2.Scale(0.5,0.5);
         person2.Translate(15,0);
-        this.shapes.push(person2);
-
-        
+        this.structures.push(person2);
         
         this.translateX = this.#path[0].x;
         this.translateY = this.#path[0].y;
@@ -162,23 +162,23 @@ class Couple extends Structure {
     Path(newPath) {
         this.#path = newPath;
     }
+    
     //Takes in a height that assumes a Person is 10 units tall by default.
     //Then it scales the person and moves them to be in the same plane
     //as their partner. This sucked to do during a physics lecture. - M
     SetHeight(index, height){
-        let person = this.shapes[index-1]
+        let person = this.structures[index-1]
         height /= 20
         person.Scale(height,height)
         person.Translate(person.translateX,(height-.5)*-50*Math.sin(4*Math.PI/3))
     }
 
-    SetFaceColor(index, color){
-        let person = this.shapes[index-1]
-        person.FaceColor(color)
+    SetFaceColor(index, color) {
+        this.structures[index-1].FaceColor(color);
     }
-    SetEyeColor(index, color){
-        let person = this.shapes[index-1]
-        person.EyeColor(color)
+
+    SetEyeColor(index, color) {
+        this.structures[index-1].EyeColor(color);
     }
 
     Tick() {
