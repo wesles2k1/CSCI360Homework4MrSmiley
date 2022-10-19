@@ -34,7 +34,11 @@ class Structure {
     }
 
     Rotate(theta) {
-        this.rotate = theta * Math.PI / 180;
+        theta *= Math.PI / 180;
+        this.rotate += theta;
+        if(this.rotate >= 2*Math.PI) {
+            this.rotate -= 2*Math.PI
+       }
     }
 
     Scale(sx,sy) {
