@@ -89,9 +89,6 @@ function BuildScene() {
 
 function DrawScene() {
     CTX.clearRect(0, 0, WIDTH, HEIGHT);
-    if(items.length == 0){
-        BuildScene();
-    }
 
     CTX.save();
         CTX.setTransform(1, 0, 0, -1, WIDTH/2, HEIGHT/2); // Base world orientation
@@ -108,7 +105,6 @@ function DrawScene() {
         CTX.restore();
 
         CTX.save();
-
             CTX.translate(worldTx, 0);  // Translates the world
 
             for (let i=0; i < items.length; ++i ) {

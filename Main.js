@@ -6,7 +6,7 @@
 const DEBUG_TURN_ON_SHAPES = false
 const DEBUG_TURN_ON_ITEMS = false
 
-const FPS = 60;
+const FPS = 60; // Ticks/Frames per second
 const REFRESH_RATE = 1000/FPS;
 
 const CANVAS = document.getElementById("theCanvas");
@@ -47,4 +47,5 @@ if(DEBUG_TURN_ON_SHAPES){
 if(DEBUG_TURN_ON_ITEMS){
     BuildItems();
 }
+BuildScene();
 DrawScene();
