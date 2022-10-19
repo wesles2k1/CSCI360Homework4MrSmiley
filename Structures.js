@@ -103,7 +103,6 @@ class Sky extends Structure {
 
 }
 
-// Ground (Rectangle)
 class Ground extends Structure {
     constructor(){
         super();
@@ -126,3 +125,42 @@ class Ground extends Structure {
 // Teeter totter (2 Mr. Smileys, a line, and a right triangle)
 // Swing (1 Mr. Smiley, series of lines)
 // Couple (2 Mr. Smileys)
+class Couple extends Structure {
+    #path;
+    
+    constructor() {
+        super();
+        this.Reset();
+
+        this.#path = [
+            {x: -25, y: 25},
+            {x: -25, y: -25},
+            {x: 25, y: -25},
+            {x: 25, y: -25}
+        ]
+
+        let person1 = new Person();
+        person1.Scale(0.5,0.5);
+        person1.Translate(-15,0);
+        this.shapes.push(person1);
+
+        let person2 = new Person();
+        person2.Scale(0.5,0.5);
+        person2.Translate(15,0);
+        this.shapes.push(person2);
+
+        this.translateX = this.#path[0].x;
+        this.translateY = this.#path[0].y;
+    }
+
+    Reset() {
+        super.Reset();
+    }
+
+    Path(newPath) {
+        this.#path = newPath;
+    }
+
+    Tick() {
+    }
+}
