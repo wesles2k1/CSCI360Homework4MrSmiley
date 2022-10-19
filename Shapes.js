@@ -38,8 +38,8 @@ class RightTriangle extends Shape {
       CTX.beginPath();
       CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2);
       CTX.moveTo(0,0)
-      CTX.lineTo(Math.cos(2*Math.PI), Math.sin(2*Math.PI))
-      CTX.lineTo(Math.cos(Math.PI/2), Math.sin(Math.PI/2))
+      CTX.lineTo(10*Math.cos(2*Math.PI), 0)
+      CTX.lineTo(0, 10*Math.sin(Math.PI/2))
       CTX.lineTo(0,0)
       CTX.fill()
       CTX.stroke()
