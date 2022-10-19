@@ -80,6 +80,9 @@ function BuildScene() {
     let ground = new Ground();
     items.push(ground)
 
+    let couple = new Couple();
+    items.push(couple);
+
     let item8 = new RightTriangle() // Just to test out parallax
     item8.Scale(5,5)
     item8.Translate(120,-120)
