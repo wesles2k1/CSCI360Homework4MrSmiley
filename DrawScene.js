@@ -93,7 +93,9 @@ function DrawScene() {
 
             for (let i=0; i < items.length; ++i ) {
                 items[i].Display();
-                items[i].Tick()
+                if(timer != null){
+                    items[i].Tick()
+                }
             }
         CTX.restore();
 
