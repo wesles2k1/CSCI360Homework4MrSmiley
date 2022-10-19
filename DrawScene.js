@@ -12,13 +12,10 @@ function BuildScene() {
     items.push(ground)
 
     let couple = new Couple();
-    let person1 = couple.shapes[0]
-    let person2 = couple.shapes[1]
-    person2.FaceColor("pink")
+    couple.SetFaceColor(2,"pink");
+    couple.SetEyeColor(1,"red")
     couple.SetHeight(1,10)
     items.push(couple);
-
-    
 }
 
 function DrawScene() {
