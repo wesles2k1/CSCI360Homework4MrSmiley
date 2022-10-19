@@ -172,6 +172,15 @@ class Couple extends Structure {
         person.Translate(person.translateX,(height-.5)*-50*Math.sin(4*Math.PI/3))
     }
 
+    SetFaceColor(index, color){
+        let person = this.shapes[index-1]
+        person.FaceColor(color)
+    }
+    SetEyeColor(index, color){
+        let person = this.shapes[index-1]
+        person.EyeColor(color)
+    }
+
     Tick() {
     }
 }
