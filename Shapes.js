@@ -106,6 +106,9 @@ class Star extends Shape {
    #points = [];
    #startRotate = Math.random() * 360
    #endRotate = Math.random() * 360
+   #startSize = Math.random() * .3
+   #endSize = .7 + Math.random() * 1.3
+   #grow
    #clockwise 
    constructor() {
       super();
@@ -116,26 +119,48 @@ class Star extends Shape {
          let point = {x:5*Math.cos(theta), y:5*Math.sin(theta)};
          this.#points.push(point);
       }
+
+      //This creates an array, indexes into the array, and sets
+      //Both variables to eachother at the exact same time.
+      //I love Javascript. - M
       if(this.#startRotate > this.#endRotate){
          this.#endRotate = [this.#startRotate, this.#startRotate = this.#endRotate][0];
+      }
+      
+      if(this.#startSize > this.#endSize){
+         this.#endSize = [this.#startSize, this.#startSize = this.#endSize][0];
       }
       this.Rotate(this.#startRotate)
    }
 
    Tick(){
-      let delta = 1
+      const ROTATEDELTA = 1
+      const SIZEDELTA = .02
       let top = this.rotate * 180/Math.PI
+      let size = (this.scaleX+this.scaleY)/2
       if(top >= this.#endRotate){
          this.#clockwise = false
       } else if (top <= this.#startRotate){
          this.#clockwise = true
       }
       if(this.#clockwise){
-         this.Rotate(delta)
+         this.Rotate(ROTATEDELTA)
       }else{
-         this.Rotate(-delta)
+         this.Rotate(-ROTATEDELTA)
       }
-
+      
+      if(size >= this.#endSize){
+         this.#grow = false
+      } else if (size <= this.#startSize){
+         this.#grow = true
+      }
+      if(this.#grow){
+         this.scaleX+=SIZEDELTA
+         this.scaleY+=SIZEDELTA
+      }else{
+         this.scaleX-=SIZEDELTA
+         this.scaleY-=SIZEDELTA
+      }
    }
 
    Reset() {
