@@ -129,6 +129,9 @@ class Ground extends Structure {
 
 class Couple extends Structure {
     #path;
+    #movementSpeed;
+    #currentPoint;
+    #nextPoint;
     
     constructor() {
         super();
@@ -140,6 +143,9 @@ class Couple extends Structure {
             {x: 25, y: -25},
             {x: 25, y: 25}
         ]
+        this.#movementSpeed = 5;
+        this.#currentPoint = 0;
+        this.#nextPoint = 1;
 
         let person1 = new Person();
         person1.Scale(0.5,0.5);
@@ -159,8 +165,12 @@ class Couple extends Structure {
         super.Reset();
     }
 
-    Path(newPath) {
+    Path(newPath, newStartPoint=0) {
         this.#path = newPath;
+        this.#currentPoint = newStartPoint;
+        if(this.#path.length > 1) {
+            this.#currentPoint += 1;
+        }
     }
     
     //Takes in a height that assumes a Person is 10 units tall by default.
@@ -182,5 +192,42 @@ class Couple extends Structure {
     }
 
     Tick() {
+        // Don't touch this unless you want to lose your sanity
+        // and instantly perish ~Wesley
+        /*
+        let movementRemaining = this.#movementSpeed;
+        while(movementRemaining > 0) {
+            // Direction gets a value of the angle from currentPoint to nextPoint
+            // (Needed to calculate x and y components of movement)
+            let direction;
+            if(this.#path[this.#nextPoint].x - this.#path[this.#currentPoint].x == 0) {
+                if(this.#path[this.#nextPoint].y - this.#path[this.#currentPoint].y < 0) {
+                    direction = Math.PI / 2;
+                } else if(this.#path[this.#nextPoint].y - this.#path[this.#currentPoint].y > 0) {
+                    direction = 3 * Math.PI / 2;
+                } else {
+                    direction = 0;  // This should never happen??? Means nextPoint and currentPoint are the same?
+                }
+            } else {
+                direction = Math.atan(
+                    (this.#path[this.#nextPoint].y - this.#path[this.#currentPoint].y) /
+                    (this.#path[this.#nextPoint].x - this.#path[this.#currentPoint].x)
+                );
+            }
+            // Translates either to nextPoint or as far as movementRemaining will allow it
+            let moveTo = {
+                x: movementRemaining * Math.cos(direction),
+                y: movementRemaining * Math.sin(direction)
+            }
+            if(moveTo.x ) { 
+                //Okay so this if needs to detect if moveTo is passed nextPoint
+                //but it's relevent to where ever currentPoint is, so direction
+                //matters here. I'm figuring that the if check here is going to
+                //be actually horrendous and really long.
+            }
+            // Ignore the line blow, but don't delete it
+            //this.Translate(this.translateX + movementRemaining, this.translateY + movementRemaining)
+        }
+        */
     }
 }
