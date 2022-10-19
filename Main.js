@@ -16,8 +16,19 @@ const HEIGHT = CANVAS.height;
 const HORIZON = HEIGHT/3
 
 let timer = null;
+
+// Background and Items could be combined into a
+// "Layers" array. Accessing gets a little messy,
+// but multiple layers could be made, each with
+// their very own parallax multipliers  ~Wesley
+let background = {
+    objects: [],
+    parallaxMultiplier: 0.25
+}
 let items = [];
+
 let worldTx = 0;
+let skyTx = 0;
 
 function StartTicks() {
     timer = setInterval(DrawScene, REFRESH_RATE);

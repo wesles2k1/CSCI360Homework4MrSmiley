@@ -73,26 +73,43 @@ function BuildItems(){
 }
 
 function BuildScene() {
-    
+
     let sky = new Sky();
-    items.push(sky);
+    background.objects.push(sky);
     
     let ground = new Ground();
     items.push(ground)
+
+    let item8 = new RightTriangle() // Just to test out parallax
+    item8.Scale(100,100)
+    item8.Translate(120,-120)
+    items.push(item8)
     
 }
 
 function DrawScene() {
     CTX.clearRect(0, 0, WIDTH, HEIGHT);
+    if(items.length == 0){
+        BuildScene();
+    }
+
     CTX.save();
         CTX.setTransform(1, 0, 0, -1, WIDTH/2, HEIGHT/2); // Base world orientation
+        
         CTX.save();
-            
-            CTX.translate(worldTx, 0);
+            CTX.translate(background.parallaxMultiplier * worldTx, 0);  // Parallaxes the background
 
-            if(items.length == 0){
-                BuildScene();
+            for (let i=0; i < background.objects.length; ++i ) {
+                background.objects[i].Display();
+                if(timer != null){
+                    background.objects[i].Tick()
+                }
             }
+        CTX.restore();
+
+        CTX.save();
+
+            CTX.translate(worldTx, 0);  // Translates the world
 
             for (let i=0; i < items.length; ++i ) {
                 items[i].Display();

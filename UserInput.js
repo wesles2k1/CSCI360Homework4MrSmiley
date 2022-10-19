@@ -15,7 +15,8 @@
 CANVAS.tabIndex = 0;
 CANVAS.addEventListener("keydown", UserInput);
 
-const SCROLL_RATE = 5;
+const SCROLL_RATE_WORLD = 5;
+const SCROLL_RATE_SKY = SCROLL_RATE_WORLD/2;
 const XMIN = 0
 const XMAX = -2500
 
@@ -25,15 +26,17 @@ function UserInput(event){
 
     switch(key) {
         case 'a':
-            if(worldTx + SCROLL_RATE < XMIN) {
-                worldTx += SCROLL_RATE;
+            if(worldTx + SCROLL_RATE_WORLD < XMIN) {
+                worldTx += SCROLL_RATE_WORLD;
+                skyTx += SCROLL_RATE_SKY;
             } else{
                 worldTx = XMIN;
             }
             break;
         case 's':
-            if(worldTx - SCROLL_RATE > XMAX) {   // May want to generalize to work with different window sizes
-                worldTx -= SCROLL_RATE;
+            if(worldTx - SCROLL_RATE_WORLD > XMAX) {   // May want to generalize to work with different window sizes
+                worldTx -= SCROLL_RATE_WORLD;
+                skyTx -= SCROLL_RATE_SKY;
             } else{
                 worldTx = XMAX;
             }
@@ -51,9 +54,15 @@ function UserInput(event){
             break;
         case 'i':   //DEBUG KEY
             alert("(DEBUGGER) 'i' has been pressed.");
+            alert("worldTx = " + GetValue())
             break;
     }
     if (stopMove && timer==null ) {
         DrawScene();
     }
+}
+
+function GetValue() {   //PURELY DEBUGGING PURPOSES
+    //return worldTx;
+    return items[0].translateX;
 }
