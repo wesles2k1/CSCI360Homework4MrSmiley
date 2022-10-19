@@ -145,8 +145,8 @@ class Couple extends Structure {
         this.shapes.push(person1);
 
         let person2 = new Person();
-        person2.Scale(0.5,0.5);
-        person2.Translate(15,0);
+        person2.Scale(0.48,0.48);
+        person2.Translate(14,0);
         this.shapes.push(person2);
 
         this.translateX = this.#path[0].x;

@@ -81,6 +81,7 @@ function BuildScene() {
     items.push(ground)
 
     let couple = new Couple();
+    couple.shapes[1].FaceColor("pink")
     items.push(couple);
 
     let item8 = new RightTriangle() // Just to test out parallax
