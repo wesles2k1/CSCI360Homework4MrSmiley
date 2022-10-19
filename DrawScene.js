@@ -73,12 +73,13 @@ function BuildItems(){
 }
 
 function BuildScene() {
-    //This works. It looks fucked up, but it sucessfuly 
-    //draws the sky Once and only Once. - M
-    if(items.length == 0){
-        let sky = new Sky();
-        items.push(sky);
-    }
+    
+    let sky = new Sky();
+    items.push(sky);
+    
+    let ground = new Ground();
+    items.push(ground)
+    
 }
 
 function DrawScene() {
@@ -89,7 +90,9 @@ function DrawScene() {
             
             CTX.translate(worldTx, 0);
 
-            BuildScene();
+            if(items.length == 0){
+                BuildScene();
+            }
 
             for (let i=0; i < items.length; ++i ) {
                 items[i].Display();

@@ -92,6 +92,22 @@ class Sky extends Structure {
 }
 
 // Ground (Rectangle)
+class Ground extends Structure {
+    constructor(){
+        super();
+        this.Reset()
+
+        let ground = new Rectangle()
+        ground.fillColor = "green"
+        ground.Scale(3000,HORIZON/5)
+        ground.Translate(0,-HORIZON/2)
+        this.shapes.push(ground)
+    }
+
+    Reset() {
+        super.Reset();
+    }
+}
 // Fence (Array of rectangles)
 // House (Rectangles and right triangle)
 // School (Separate or just flip the house and different colors?)
