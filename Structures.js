@@ -62,30 +62,33 @@ class Person extends Structure {
 
 class Sky extends Structure {
     numberOfStars = 250;
-    #stars = [];
 
     constructor() {
         super();
         this.Reset();
 
+        let background = new Rectangle()
+        background.Scale(3000,HORIZON/10)
+        background.fillColor = "#38285c"
+        background.Translate(0,HORIZON)
+        this.shapes.push(background)
         for(let i = 0; i < this.numberOfStars; i++) {
             let star = new Star();
+            star.fillColor = "Yellow"
+            star.lineColor = "Yellow"
             star.Translate((3000 * Math.random()) - (WIDTH / 2), (HEIGHT / 2) - ((HORIZON * Math.random()))) // Make sure to fit world size, not canvas
-            this.#stars.push(star);
+            this.shapes.push(star);
         }
     }
 
     Tick(){
-        this.#stars.forEach(element => {element.Tick()})
+        this.shapes.forEach(element => {element.Tick()})
     }
 
     Reset() {
         super.Reset();
     }
 
-    DrawLines(){
-        this.#stars.forEach(element => {element.Display()});
-    }
 }
 
 // Ground (Rectangle)
