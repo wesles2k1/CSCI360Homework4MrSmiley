@@ -98,6 +98,9 @@ class Star extends Shape {
          this.#endSize = [this.#startSize, this.#startSize = this.#endSize][0];
       }
       this.Rotate(this.#startRotate)
+
+      let startScale = this.#startSize + (Math.random() * (this.#endSize - this.#startSize));
+      this.Scale(startScale, startScale);
    }
 
    //I don't care if this is over 30 lines. It works.
