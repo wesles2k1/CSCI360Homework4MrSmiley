@@ -132,6 +132,7 @@ class Couple extends Structure {
     #movementSpeed;
     #currentPoint;
     #nextPoint;
+    #currentNextPointsDistance;
     
     constructor() {
         super();
@@ -143,9 +144,12 @@ class Couple extends Structure {
             {x: 25, y: -25},
             {x: 25, y: 25}
         ]
-        this.#movementSpeed = 5;
+        this.#movementSpeed = 1;
         this.#currentPoint = 0;
         this.#nextPoint = 1;
+        this.#currentNextPointsDistance = Math.sqrt(
+            Math.pow(this.#path[this.#currentPoint].x - this.#path[this.#nextPoint].x, 2) +
+            Math.pow(this.#path[this.#currentPoint].y - this.#path[this.#nextPoint].y, 2));
 
         let person1 = new Person();
         person1.Scale(0.5,0.5);
@@ -157,20 +161,12 @@ class Couple extends Structure {
         person2.Translate(15,0);
         this.structures.push(person2);
         
-        this.translateX = this.#path[0].x;
-        this.translateY = this.#path[0].y;
+        this.translateX += this.#path[0].x;
+        this.translateY += this.#path[0].y;
     }
 
     Reset() {
         super.Reset();
-    }
-
-    Path(newPath, newStartPoint=0) {
-        this.#path = newPath;
-        this.#currentPoint = newStartPoint;
-        if(this.#path.length > 1) {
-            this.#currentPoint += 1;
-        }
     }
     
     //Takes in a height that assumes a Person is 10 units tall by default.
@@ -191,43 +187,82 @@ class Couple extends Structure {
         this.structures[index-1].EyeColor(color);
     }
 
+    Path(newPath, newStartPoint = 0) {
+        if(newPath.length > 0) {
+            this.#path = newPath;
+            this.translateX = this.#path[0].x;
+            this.translateY = this.#path[0].y;
+            this.#currentPoint = newStartPoint;
+            if(this.#currentPoint + 1 >= this.#path.length) {
+                this.#nextPoint = 0;
+            } else {
+                this.#nextPoint = this.#currentPoint + 1;
+            }
+            this.#currentNextPointsDistance = Math.sqrt(
+                Math.pow(this.#path[this.#currentPoint].x - this.#path[this.#nextPoint].x, 2) +
+                Math.pow(this.#path[this.#currentPoint].y - this.#path[this.#nextPoint].y, 2));
+        }
+    }
+
     Tick() {
-        // Don't touch this unless you want to lose your sanity
-        // and instantly perish ~Wesley
-        /*
+        // Don't look at this code unless you want to lose
+        // your sanity and perish instantly  ~Wesley
+
         let movementRemaining = this.#movementSpeed;
         while(movementRemaining > 0) {
-            // Direction gets a value of the angle from currentPoint to nextPoint
-            // (Needed to calculate x and y components of movement)
+
+            // Calculates angle from currentPoint to nextPoint, reletive to the X-axis
             let direction;
-            if(this.#path[this.#nextPoint].x - this.#path[this.#currentPoint].x == 0) {
-                if(this.#path[this.#nextPoint].y - this.#path[this.#currentPoint].y < 0) {
-                    direction = Math.PI / 2;
-                } else if(this.#path[this.#nextPoint].y - this.#path[this.#currentPoint].y > 0) {
-                    direction = 3 * Math.PI / 2;
-                } else {
-                    direction = 0;  // This should never happen??? Means nextPoint and currentPoint are the same?
+            if(this.#path[this.#nextPoint].x - this.#path[this.#currentPoint].x == 0) { // Handles undefined inverse tangent values (90 and 270 degrees)
+                if(this.#path[this.#nextPoint].y - this.#path[this.#currentPoint].y > 0) {
+                    direction = Math.PI / 2;    // Up/90 Degrees
+                } else if(this.#path[this.#nextPoint].y - this.#path[this.#currentPoint].y < 0) {
+                    direction = 3 * Math.PI / 2;    // Down/270 Degrees
+                } else {    // Only occurs if given a path of size 1; This prevents the program from breaking
+                    direction = 0;
+                    movementRemaining = 0;
                 }
-            } else {
+            } else {    // Calculates angle
                 direction = Math.atan(
                     (this.#path[this.#nextPoint].y - this.#path[this.#currentPoint].y) /
                     (this.#path[this.#nextPoint].x - this.#path[this.#currentPoint].x)
                 );
+                if(this.#path[this.#nextPoint].x - this.#path[this.#currentPoint].x < 0) {  // Adjusts angle if it's supposed to be from 90 to 270
+                    direction += Math.PI;
+                }
             }
+
             // Translates either to nextPoint or as far as movementRemaining will allow it
             let moveTo = {
-                x: movementRemaining * Math.cos(direction),
-                y: movementRemaining * Math.sin(direction)
+                x: this.translateX + (movementRemaining * Math.cos(direction)),
+                y: this.translateY + (movementRemaining * Math.sin(direction))
             }
-            if(moveTo.x ) { 
-                //Okay so this if needs to detect if moveTo is passed nextPoint
-                //but it's relevent to where ever currentPoint is, so direction
-                //matters here. I'm figuring that the if check here is going to
-                //be actually horrendous and really long.
+            let moveDistance = Math.sqrt(
+                Math.pow(this.#path[this.#currentPoint].x - moveTo.x, 2) +
+                Math.pow(this.#path[this.#currentPoint].y - moveTo.y, 2));
+            if(moveDistance < this.#currentNextPointsDistance) {    // Determines whether to translate to nextPoint or moveTo
+                this.Translate(moveTo.x, moveTo.y);
+                movementRemaining = 0;
+            } else {
+                let distanceCovered = Math.sqrt(
+                    Math.pow(this.#path[this.#nextPoint].x - this.translateX, 2) +
+                    Math.pow(this.#path[this.#nextPoint].y - this.translateY, 2));
+                this.Translate(this.#path[this.#nextPoint].x, this.#path[this.#nextPoint].y);
+                movementRemaining -= distanceCovered;
+                if(this.#currentPoint + 1 >= this.#path.length) {
+                    this.#currentPoint = 0;
+                } else {
+                    this.#currentPoint++;
+                }
+                if(this.#nextPoint + 1 >= this.#path.length) {
+                    this.#nextPoint = 0;
+                } else {
+                    this.#nextPoint++;
+                }
+                this.#currentNextPointsDistance = Math.sqrt(
+                    Math.pow(this.#path[this.#currentPoint].x - this.#path[this.#nextPoint].x, 2) +
+                    Math.pow(this.#path[this.#currentPoint].y - this.#path[this.#nextPoint].y, 2));
             }
-            // Ignore the line blow, but don't delete it
-            //this.Translate(this.translateX + movementRemaining, this.translateY + movementRemaining)
         }
-        */
     }
 }

@@ -13,8 +13,16 @@ function BuildScene() {
 
     let couple = new Couple();
     couple.SetFaceColor(2,"pink");
-    couple.SetEyeColor(1,"red")
-    couple.SetHeight(1,10)
+    couple.SetEyeColor(1,"red");
+    couple.SetHeight(1,10);
+    let newPath = [
+        {x: -25, y: 0},
+        {x: 25, y: 0},
+        {x: 0, y: 25},
+        {x: 0, y: -25}
+    ];
+    couple.Path(newPath);   // Second parameter, custom start point, doesn't quite work yet
+    //couple.Translate(100, 0); // For some reason, translates Couple, but not Couple's path? Kinda broken for now
     items.push(couple);
 }
 
