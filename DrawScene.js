@@ -15,6 +15,7 @@ function BuildScene() {
     couple.SetFaceColor(2,"pink");
     couple.SetEyeColor(1,"red");
     couple.SetHeight(1,10);
+    couple.SetSkirt(2,"pink")
     let zigzagPath = [
         {x: -50, y: 0},
         {x: 50, y: 0},
@@ -34,6 +35,13 @@ function BuildScene() {
     couple.Translate(100, 0);
     items.push(couple);
 
+    let gay = new Couple();
+    gay.SetFaceColor(1,"pink");
+    gay.SetFaceColor(2,"pink");
+    gay.SetPath(zigzagPath,0)
+    gay.Translate(500,-10)
+    items.push(gay)
+    
     let house = new House();
     house.Translate(-150, 0)
     items.push(house);

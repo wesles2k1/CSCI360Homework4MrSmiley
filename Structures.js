@@ -6,6 +6,8 @@ class Person extends Structure {
     head;
     rightEye;
     leftEye;
+    girl = false;
+    skirtColor
 
     constructor() {
         super();
@@ -60,6 +62,15 @@ class Person extends Structure {
         CTX.lineTo(50*Math.cos(4*Math.PI/3),50*Math.sin(4*Math.PI/3))
 
         CTX.stroke()
+        if(this.girl){
+            CTX.beginPath()
+            CTX.moveTo(0,0)
+            CTX.lineTo(-30*Math.cos(4*Math.PI/3),30*Math.sin(4*Math.PI/3))
+            CTX.lineTo(30*Math.cos(4*Math.PI/3),30*Math.sin(4*Math.PI/3))
+            CTX.moveTo(0,0)
+            CTX.fillStyle = "pink"
+            CTX.fill()
+        }        
     }
 
     FaceColor(color) {
@@ -69,6 +80,16 @@ class Person extends Structure {
     EyeColor(color) {
         this.rightEye.fillColor = color;
         this.leftEye.fillColor = color;
+    }
+
+    Skirt(color){
+        if(this.girl){
+            this.girl = false
+        }else{
+            this.girl = true
+            this.skirtColor = color
+        }
+        this.DrawLines()
     }
 }
 
@@ -243,6 +264,18 @@ class School extends Structure {
 }
 
 // Teeter totter (2 Mr. Smileys, a line, and a right triangle)
+class TeeterTotter extends Structure {
+    constructor() {
+        super();
+        this.Reset();
+
+
+    }
+
+    Reset(){
+        super.Reset()
+    }
+}
 
 // Swing (1 Mr. Smiley, series of lines)
 
@@ -313,6 +346,9 @@ class Couple extends Structure {
 
     SetEyeColor(index, color) {
         this.structures[index-1].EyeColor(color);
+    }
+    SetSkirt(index, color){
+        this.structures[index-1].Skirt(color);
     }
 
     SetPath(newPath, newStartPoint = 0) {
