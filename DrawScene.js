@@ -13,9 +13,35 @@ function BuildScene() {
 
     let couple = new Couple();
     couple.SetFaceColor(2,"pink");
-    couple.SetEyeColor(1,"red")
-    couple.SetHeight(1,10)
+    couple.SetEyeColor(1,"red");
+    couple.SetHeight(1,10);
+    let zigzagPath = [
+        {x: -50, y: 0},
+        {x: 50, y: 0},
+        {x: 0, y: 25},
+        {x: 0, y: -25}
+    ];
+    let diamondPath = [
+        {x: -25, y: 0},
+        {x: 0, y: 25},
+        {x: 25, y: 0},
+        {x: 0, y: -25}
+    ];
+    let stillPath = [
+        {x: 0, y:0}
+    ]
+    couple.SetPath(diamondPath, -4);
+    couple.Translate(100, 0);
     items.push(couple);
+
+    let house = new House();
+    house.Translate(-150, 0)
+    items.push(house);
+
+    let school = new School();
+    school.Translate(2650, 0);
+    school.Scale(-1, 1);
+    items.push(school);
 }
 
 function DrawScene() {
@@ -51,16 +77,4 @@ function DrawScene() {
         theManHimself.Translate(0, -100);
         theManHimself.Display()
     CTX.restore();
-}
-
-function Axis() {
-    CTX.strokeStyle = "black";
-    CTX.beginPath();
-
-    CTX.moveTo(0, height/2);
-    CTX.lineTo(width,height/2);
-
-    CTX.moveTo(width/2,0);
-    CTX.lineTo(width/2,height);
-    CTX.stroke();
 }
