@@ -24,6 +24,15 @@ function BuildScene() {
     couple.Path(newPath);   // Second parameter, custom start point, doesn't quite work yet
     //couple.Translate(100, 0); // For some reason, translates Couple, but not Couple's path? Kinda broken for now
     items.push(couple);
+
+    let house = new House();
+    house.Translate(-150, 0)
+    items.push(house);
+
+    let school = new School();
+    school.Translate(2650, 0);
+    school.Scale(-1, 1);
+    items.push(school);
 }
 
 function DrawScene() {
@@ -59,16 +68,4 @@ function DrawScene() {
         theManHimself.Translate(0, -100);
         theManHimself.Display()
     CTX.restore();
-}
-
-function Axis() {
-    CTX.strokeStyle = "black";
-    CTX.beginPath();
-
-    CTX.moveTo(0, height/2);
-    CTX.lineTo(width,height/2);
-
-    CTX.moveTo(width/2,0);
-    CTX.lineTo(width/2,height);
-    CTX.stroke();
 }
