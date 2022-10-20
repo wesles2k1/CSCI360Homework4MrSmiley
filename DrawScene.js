@@ -30,7 +30,7 @@ function BuildScene() {
     let stillPath = [
         {x: 0, y:0}
     ]
-    couple.Path(diamondPath, -4);
+    couple.SetPath(diamondPath, -4);
     couple.Translate(100, 0);
     items.push(couple);
 

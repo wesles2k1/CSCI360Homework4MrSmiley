@@ -289,7 +289,7 @@ class Couple extends Structure {
         super.Reset();
     }
 
-    Translate(tx, ty) {
+    Translate(tx, ty) { // Translates the anchor point rather than the couple itself
         this.#anchor.x = tx;
         this.#anchor.y = ty;
         
@@ -315,7 +315,7 @@ class Couple extends Structure {
         this.structures[index-1].EyeColor(color);
     }
 
-    Path(newPath, newStartPoint = 0) {
+    SetPath(newPath, newStartPoint = 0) {
         if(newPath.length > 0) {
             this.#path = newPath;
             if(newStartPoint >= this.#path.length || newStartPoint < 0) {   // Protects against index errors
@@ -335,10 +335,20 @@ class Couple extends Structure {
         // Don't look at this code unless you want to lose
         // your sanity and perish instantly  ~Wesley
         // Ye who wish to live, turn back now
+        // (Should probably be split into GetDirection and
+        // MoveCouple functions, but that's too much of a
+        // pain right now and this works)   ~Wesley
 
         let movementRemaining = this.#movementSpeed;
         while(movementRemaining > 0) {
-            // Gets coordinates of currentPoint and nextPoint (Calculate only when currentPoint/nextPoint change? Make them class variables)
+            // Gets coordinates of currentPoint and nextPoint
+                // Works for now, but recalculates every tick, even
+                // though they'll be the same most of the time.
+                // These points really only change when the next
+                // and current points cycle over.
+                // currentPoint and nextPoint should probably be
+                // member data instead of local to this function.
+                // Too hard to figure out right now tho ~Wesley
             let currentPoint = {
                 x: this.#anchor.x + this.#path[this.#currentPointIndex].x,
                 y: this.#anchor.y + this.#path[this.#currentPointIndex].y
