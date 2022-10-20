@@ -15,14 +15,23 @@ function BuildScene() {
     couple.SetFaceColor(2,"pink");
     couple.SetEyeColor(1,"red");
     couple.SetHeight(1,10);
-    let newPath = [
-        {x: -25, y: 0},
-        {x: 25, y: 0},
+    let zigzagPath = [
+        {x: -50, y: 0},
+        {x: 50, y: 0},
         {x: 0, y: 25},
         {x: 0, y: -25}
     ];
-    couple.Path(newPath);   // Second parameter, custom start point, doesn't quite work yet
-    //couple.Translate(100, 0); // For some reason, translates Couple, but not Couple's path? Kinda broken for now
+    let diamondPath = [
+        {x: -25, y: 0},
+        {x: 0, y: 25},
+        {x: 25, y: 0},
+        {x: 0, y: -25}
+    ];
+    let stillPath = [
+        {x: 0, y:0}
+    ]
+    couple.Path(diamondPath, -4);
+    couple.Translate(100, 0);
     items.push(couple);
 
     let house = new House();
