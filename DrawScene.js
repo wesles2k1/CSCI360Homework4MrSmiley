@@ -38,6 +38,8 @@ function BuildScene() {
     let gay = new Couple();
     gay.SetFaceColor(1,"pink");
     gay.SetFaceColor(2,"pink");
+    gay.SetSkirt(1,"pink")
+    gay.SetSkirt(2,"pink")
     gay.SetPath(zigzagPath,0)
     gay.Translate(500,-10)
     items.push(gay)
