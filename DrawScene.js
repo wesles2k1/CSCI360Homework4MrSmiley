@@ -11,6 +11,11 @@ function BuildScene() {
     let ground = new Ground();
     items.push(ground)
 
+    let fence = new Fence()
+    fence.Translate(-50,90)
+    fence.Scale(.67,.67)
+    items.push(fence)
+
     let couple = new Couple();
     couple.SetFaceColor(2,"pink");
     couple.SetEyeColor(1,"red");
@@ -52,10 +57,6 @@ function BuildScene() {
     school.Translate(2650, 0);
     school.Scale(-1, 1);
     items.push(school);
-
-    let fence = new FenceComponent()
-    fence.Translate(200,0)
-    items.push(fence)
 
 }
 

@@ -142,33 +142,70 @@ class Ground extends Structure {
 }
 
 class FenceComponent extends Structure {
+
+    constructor(hue=0) {
+        super();
+        this.Reset();
+
+        const HUE_SHIFT = 20
+
+
+        let post = new Rectangle();
+        post.fillColor = "hsl(" + hue + ",60%,50%)"
+        post.lineColor = "hsl(" + hue + ",60%,20%)"
+        post.Scale(2,9)
+        post.Translate(-20,0)
+
+        let topPost = new Rectangle();
+        topPost.fillColor = "hsl(" + (hue+HUE_SHIFT) + ",60%,50%)"
+        topPost.lineColor = "hsl(" + (hue+HUE_SHIFT) + ",60%,20%)"
+        topPost.Scale(9,2.5)
+        topPost.Translate(30,27)
+        this.structures.push(topPost)
+
+        let bottomPost = new Rectangle();
+        bottomPost.fillColor = "hsl(" + (hue-HUE_SHIFT) + ",60%,50%)"
+        bottomPost.lineColor = "hsl(" + (hue-HUE_SHIFT) + ",60%,20%)"
+        bottomPost.Scale(9,2.5)
+        bottomPost.Translate(30,-15)
+        this.structures.push(bottomPost)
+
+        this.structures.push(post)
+    }
+
+    Reset(){
+        super.Reset()
+    }
+}
+
+class Fence extends Structure {
     constructor() {
         super();
         this.Reset();
 
-        let hue = Math.random()*360
+        const COMPONENT_WIDTH = 104
+        const LOOP_NUMBER = 38
+        
+        let hue = Math.floor(Math.random()*360)
+        let rando
 
-        let post = new Rectangle();
-        post.fillColor = "hsl(" + hue + ",100%,50%)"
-        post.lineColor = "hsl(" + hue + ",100%,20%)"
-        post.Scale(3,9)
-        post.Translate(-20,0)
 
-        let topPost = new Rectangle();
-        topPost.fillColor = "hsl(" + (hue+10) + ",100%,50%)"
-        topPost.lineColor = "hsl(" + (hue+10) + ",100%,20%)"
-        topPost.Scale(9,3)
-        topPost.Translate(35,25)
-        this.structures.push(topPost)
-
-        let bottomPost = new Rectangle();
-        bottomPost.fillColor = "hsl(" + (hue-10) + ",100%,50%)"
-        bottomPost.lineColor = "hsl(" + (hue-10) + ",100%,20%)"
-        bottomPost.Scale(9,3)
-        bottomPost.Translate(35,-15)
-        this.structures.push(bottomPost)
-
-        this.structures.push(post)
+        let first = new FenceComponent(hue)
+        this.structures.push(first)
+        
+        for(let i=1; i < LOOP_NUMBER; i++){
+            rando = Math.floor(Math.random()*(240-120)-120)
+            rando = RangeOfCircle(rando)
+            while(RangeOfCircle(rando+hue) >= RangeOfCircle(hue-50) && RangeOfCircle(rando+hue) <= RangeOfCircle(hue+50)){
+                rando = Math.floor(Math.random()*(240-120)-120)
+                rando = RangeOfCircle(rando)
+            }
+            hue += rando
+            hue = RangeOfCircle(hue)
+            let next = new FenceComponent(hue)
+            next.Translate(COMPONENT_WIDTH*i,0)
+            this.structures.push(next)
+        }
     }
 
     Reset(){
@@ -484,4 +521,11 @@ class Couple extends Structure {
         }
         return(index)
     }
+}
+
+
+//Helper Functions
+
+function RangeOfCircle(number){
+    return number-(360*Math.floor(number/360))
 }
