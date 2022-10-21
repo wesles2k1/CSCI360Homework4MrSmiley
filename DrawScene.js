@@ -81,7 +81,7 @@ function DrawScene() {
 
             for (let i=0; i < background.objects.length; ++i ) {
                 background.objects[i].Display();
-                if(timer != null){
+                if(!stopMove){
                     background.objects[i].Tick()
                 }
             }
@@ -92,7 +92,7 @@ function DrawScene() {
 
             for (let i=0; i < items.length; ++i ) {
                 items[i].Display();
-                if(timer != null){
+                if(!stopMove){
                     items[i].Tick()
                 }
             }

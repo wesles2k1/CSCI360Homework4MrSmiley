@@ -22,7 +22,6 @@ const XMAX = -2500
 
 function UserInput(event){
     let key = event.key.toLowerCase();
-    let stopMove = true;
 
     switch(key) {
         case 'a':

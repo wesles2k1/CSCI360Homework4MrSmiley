@@ -17,6 +17,7 @@ const HEIGHT = CANVAS.height;
 const HORIZON = HEIGHT/3
 
 let timer = null;
+let stopMove = true;
 
 // Background and Items could be combined into a
 // "Layers" array. Accessing gets a little messy,
