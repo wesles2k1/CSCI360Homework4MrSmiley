@@ -62,14 +62,20 @@ class Person extends Structure {
         CTX.lineTo(50*Math.cos(4*Math.PI/3),50*Math.sin(4*Math.PI/3))
 
         CTX.stroke()
+
+        //skirt
         if(this.girl){
-            CTX.beginPath()
-            CTX.moveTo(0,0)
-            CTX.lineTo(-30*Math.cos(4*Math.PI/3),30*Math.sin(4*Math.PI/3))
-            CTX.lineTo(30*Math.cos(4*Math.PI/3),30*Math.sin(4*Math.PI/3))
-            CTX.moveTo(0,0)
-            CTX.fillStyle = "pink"
-            CTX.fill()
+            CTX.save();
+                CTX.scale(1.5,1.5);
+                CTX.translate(0,12)
+                CTX.beginPath()
+                CTX.moveTo(0,0)
+                CTX.lineTo(-30*Math.cos(4*Math.PI/3),30*Math.sin(4*Math.PI/3))
+                CTX.lineTo(30*Math.cos(4*Math.PI/3),30*Math.sin(4*Math.PI/3))
+                CTX.moveTo(0,0)
+                CTX.fillStyle = "pink"
+                CTX.fill()
+            CTX.restore();
         }        
     }
 
