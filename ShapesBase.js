@@ -36,7 +36,7 @@ class Shape {
     }
 
     set lineColor(value) {
-    this.#lineColor = value; 
+        this.#lineColor = value; 
     }
 
     get lineColor() {
@@ -44,7 +44,7 @@ class Shape {
     }
 
     set fillColor(value) {
-    this.#fillColor = value;
+        this.#fillColor = value;
     }
 
     get fillColor() {
