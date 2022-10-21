@@ -2,7 +2,23 @@
 
 // This file will use the classes to draw objects
 // into the world and create a scene
-
+let paths = {
+    zigzag : [
+        {x: -50, y: 0},
+        {x: 50, y: 0},
+        {x: 0, y: 25},
+        {x: 0, y: -25}
+    ],
+    diamond : [
+        {x: -25, y: 0},
+        {x: 0, y: 25},
+        {x: 25, y: 0},
+        {x: 0, y: -25}
+    ],
+    still : [
+        {x: 0, y:0}
+    ]
+}
 function BuildScene() {
 
     let sky = new Sky();
@@ -31,31 +47,18 @@ function BuildScene() {
         couple.SetEyeColor(1,"red");
         couple.SetHeight(1,10);
         couple.SetSkirt(2,"pink")
-        let zigzagPath = [
-            {x: -50, y: 0},
-            {x: 50, y: 0},
-            {x: 0, y: 25},
-            {x: 0, y: -25}
-        ];
-        let diamondPath = [
-            {x: -25, y: 0},
-            {x: 0, y: 25},
-            {x: 25, y: 0},
-            {x: 0, y: -25}
-        ];
-        let stillPath = [
-            {x: 0, y:0}
-        ]
-        couple.SetPath(diamondPath, -4);
+        couple.SetPath(paths.diamond, -4);
         couple.Translate(RoundInSteps(Math.random()*2500, 17), 0);
         items.push(couple);
 
     let gay = new Couple();
-        gay.SetFaceColor(1,"pink");
-        gay.SetFaceColor(2,"pink");
-        gay.SetSkirt(1,"pink")
-        gay.SetSkirt(2,"pink")
-        gay.SetPath(zigzagPath,0)
+        gay.SetFaceColor(1,"#F874A1");
+        gay.SetFaceColor(2,"#1BCF47");
+        gay.SetSkirt(1,"#FF8FAD")
+        gay.SetSkirt(2,"#E6EE2F")
+        gay.SetPath(paths.zigzag,0)
+        gay.SetHeight(1,9)
+        gay.SetHeight(2,11)
         gay.Translate(RoundInSteps(Math.random()*2500, 15),-10)
         items.push(gay)
     
