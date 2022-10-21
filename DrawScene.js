@@ -17,12 +17,12 @@ function BuildScene() {
         items.push(fence)
 
     let swing = new Swing();
-        swing.Translate(400, 25);
+        swing.Translate((Math.random()*2500), 25);
         swing.Scale(0.75);
         items.push(swing);
 
     let teeterTotter = new TeeterTotter();
-        teeterTotter.Translate(200, 50);
+        teeterTotter.Translate(RoundInSteps(Math.random()*2500-100, 12, 100), 50);
         teeterTotter.Scale(0.75);
         items.push(teeterTotter);
 
@@ -47,7 +47,7 @@ function BuildScene() {
             {x: 0, y:0}
         ]
         couple.SetPath(diamondPath, -4);
-        couple.Translate(100, 0);
+        couple.Translate(RoundInSteps(Math.random()*2500, 17), 0);
         items.push(couple);
 
     let gay = new Couple();
@@ -56,7 +56,7 @@ function BuildScene() {
         gay.SetSkirt(1,"pink")
         gay.SetSkirt(2,"pink")
         gay.SetPath(zigzagPath,0)
-        gay.Translate(500,-10)
+        gay.Translate(RoundInSteps(Math.random()*2500, 15),-10)
         items.push(gay)
     
     let house = new House();
@@ -103,4 +103,11 @@ function DrawScene() {
         theManHimself.Translate(0, -100);
         theManHimself.Display()
     CTX.restore();
+}
+
+
+//Helper Functions
+
+function RoundInSteps(number, step, min = 0) {
+    return Math.ceil((number - min) / step ) * step + min;
 }
