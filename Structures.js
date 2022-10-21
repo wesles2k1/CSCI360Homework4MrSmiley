@@ -348,12 +348,81 @@ class TeeterTotter extends Structure {
 
     }
 
-    Reset(){
+    Reset() {
         super.Reset()
     }
 }
 
 // Swing (1 Mr. Smiley, series of lines)
+class Swing extends Structure {
+    #swingSpeed;
+    #swingTheta;
+    #clockwise;
+    #maxRotation;
+
+    constructor() {
+        super();
+        this.Reset();
+
+        this.#swingSpeed = 1 *(Math.PI/180);
+        this.#swingTheta = 0 *(Math.PI/180);
+        this.#clockwise = true;
+        this.#maxRotation = 45 *(Math.PI/180);
+
+        let person = new Person();
+        person.Scale(0.5,0.5);
+        person.Translate(0,0);
+        this.structures.push(person);
+    }
+
+    Reset() {
+        super.Reset()
+    }
+    
+    DrawStructure(){
+        CTX.beginPath()
+
+        // Legs
+        CTX.moveTo(0,150)
+        CTX.lineTo(-40, 0)
+        CTX.moveTo(0,150)
+        CTX.lineTo(40, 0)
+        CTX.stroke();
+
+        // Rope and swing
+        CTX.save();
+            CTX.translate(0, 150);
+            CTX.rotate(this.#swingTheta);
+            CTX.moveTo(0, 0);
+            CTX.lineTo(0, -115);
+            CTX.moveTo(-10, -115);
+            CTX.lineTo(10, -115);
+            CTX.stroke();
+            // Person
+            CTX.save();
+                CTX.translate(0, -115);
+                CTX.rotate(-this.#swingTheta * 0.5);
+                this.structures[0].Display();
+            CTX.restore();
+        CTX.restore();
+
+        CTX.stroke();
+    }
+
+    Tick() {
+        if(this.#clockwise) { 
+            this.#swingTheta -= this.#swingSpeed;
+            if(this.#swingTheta <= -this.#maxRotation) {
+                this.#clockwise = false;
+            }
+        }else {
+            this.#swingTheta += this.#swingSpeed;
+            if(this.#swingTheta >= this.#maxRotation) {
+                this.#clockwise = true;
+            }
+        }
+    }
+}
 
 class Couple extends Structure {
     #path;

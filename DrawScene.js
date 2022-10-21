@@ -6,57 +6,62 @@
 function BuildScene() {
 
     let sky = new Sky();
-    background.objects.push(sky);
+        background.objects.push(sky);
     
     let ground = new Ground();
-    items.push(ground)
+        items.push(ground)
 
     let fence = new Fence()
-    fence.Translate(-50,90)
-    fence.Scale(.67,.67)
-    items.push(fence)
+        fence.Translate(-50,90)
+        fence.Scale(.67,.67)
+        items.push(fence)
+
+    let swing = new Swing();
+        swing.Translate(200, 25);
+        swing.Scale(0.75, 0.75);
+        items.push(swing);
 
     let couple = new Couple();
-    couple.SetFaceColor(2,"pink");
-    couple.SetEyeColor(1,"red");
-    couple.SetHeight(1,10);
-    couple.SetSkirt(2,"pink")
-    let zigzagPath = [
-        {x: -50, y: 0},
-        {x: 50, y: 0},
-        {x: 0, y: 25},
-        {x: 0, y: -25}
-    ];
-    let diamondPath = [
-        {x: -25, y: 0},
-        {x: 0, y: 25},
-        {x: 25, y: 0},
-        {x: 0, y: -25}
-    ];
-    let stillPath = [
-        {x: 0, y:0}
-    ]
-    couple.SetPath(diamondPath, -4);
-    couple.Translate(100, 0);
-    items.push(couple);
+        couple.SetFaceColor(2,"pink");
+        couple.SetEyeColor(1,"red");
+        couple.SetHeight(1,10);
+        couple.SetSkirt(2,"pink")
+        let zigzagPath = [
+            {x: -50, y: 0},
+            {x: 50, y: 0},
+            {x: 0, y: 25},
+            {x: 0, y: -25}
+        ];
+        let diamondPath = [
+            {x: -25, y: 0},
+            {x: 0, y: 25},
+            {x: 25, y: 0},
+            {x: 0, y: -25}
+        ];
+        let stillPath = [
+            {x: 0, y:0}
+        ]
+        couple.SetPath(diamondPath, -4);
+        couple.Translate(100, 0);
+        items.push(couple);
 
     let gay = new Couple();
-    gay.SetFaceColor(1,"pink");
-    gay.SetFaceColor(2,"pink");
-    gay.SetSkirt(1,"pink")
-    gay.SetSkirt(2,"pink")
-    gay.SetPath(zigzagPath,0)
-    gay.Translate(500,-10)
-    items.push(gay)
+        gay.SetFaceColor(1,"pink");
+        gay.SetFaceColor(2,"pink");
+        gay.SetSkirt(1,"pink")
+        gay.SetSkirt(2,"pink")
+        gay.SetPath(zigzagPath,0)
+        gay.Translate(500,-10)
+        items.push(gay)
     
     let house = new House();
-    house.Translate(-150, 0)
-    items.push(house);
+        house.Translate(-150, 0)
+        items.push(house);
 
     let school = new School();
-    school.Translate(2650, 0);
-    school.Scale(-1, 1);
-    items.push(school);
+        school.Translate(2650, 0);
+        school.Scale(-1, 1);
+        items.push(school);
 
 }
 
