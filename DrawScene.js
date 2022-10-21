@@ -17,9 +17,14 @@ function BuildScene() {
         items.push(fence)
 
     let swing = new Swing();
-        swing.Translate(200, 25);
+        swing.Translate(400, 25);
         swing.Scale(0.75);
         items.push(swing);
+
+    let teeterTotter = new TeeterTotter();
+        teeterTotter.Translate(200, 50);
+        teeterTotter.Scale(0.75);
+        items.push(teeterTotter);
 
     let couple = new Couple();
         couple.SetFaceColor(2,"pink");

@@ -339,21 +339,85 @@ class School extends Structure {
     }
 }
 
-// Teeter totter (2 Mr. Smileys, a line, and a right triangle)
 class TeeterTotter extends Structure {
+    #fulcrumSpeed;
+    #fulcrumTheta;
+    #clockwise;
+    #maxRotation;
+
     constructor() {
         super();
         this.Reset();
 
+        this.#fulcrumSpeed = 1 *(Math.PI/180);
+        this.#fulcrumTheta = 0 *(Math.PI/180);
+        this.#clockwise = true;
+        this.#maxRotation = 35 *(Math.PI/180);
 
+        let fulcrum = new RightTriangle();
+        fulcrum.Scale(2, 6);
+        fulcrum.Rotate(225);
+        this.structures.push(fulcrum);
+
+        let person1 = new Person();
+        person1.Scale(0.5,0.5);
+        person1.Translate(0,0);
+        this.structures.push(person1);
+        
+        let person2 = new Person();
+        person2.Scale(0.5,0.5);
+        person2.Translate(0,0);
+        this.structures.push(person2);
     }
 
     Reset() {
         super.Reset()
     }
+    
+    DrawStructure(){
+        CTX.beginPath()
+
+        // Fulcrum
+        this.structures[0].Display();
+
+        // Board
+        CTX.save();
+            CTX.translate(0, 0);
+            CTX.rotate(this.#fulcrumTheta);
+            CTX.moveTo(75, 0);
+            CTX.lineTo(-75, 0);
+            CTX.stroke();
+            // Each person
+            CTX.save();
+                CTX.translate(50, 0);
+                CTX.rotate(-this.#fulcrumTheta);
+                this.structures[1].Display();
+            CTX.restore();
+            CTX.save();
+                CTX.translate(-50, 0);
+                CTX.rotate(-this.#fulcrumTheta);
+                this.structures[2].Display();
+            CTX.restore();
+        CTX.restore();
+
+        CTX.stroke();
+    }
+
+    Tick() {
+        if(this.#clockwise) { 
+            this.#fulcrumTheta -= this.#fulcrumSpeed;
+            if(this.#fulcrumTheta <= -this.#maxRotation) {
+                this.#clockwise = false;
+            }
+        }else {
+            this.#fulcrumTheta += this.#fulcrumSpeed;
+            if(this.#fulcrumTheta >= this.#maxRotation) {
+                this.#clockwise = true;
+            }
+        }
+    }
 }
 
-// Swing (1 Mr. Smiley, series of lines)
 class Swing extends Structure {
     #swingSpeed;
     #swingTheta;
