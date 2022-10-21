@@ -52,6 +52,11 @@ function BuildScene() {
     school.Translate(2650, 0);
     school.Scale(-1, 1);
     items.push(school);
+
+    let fence = new FenceComponent()
+    fence.Translate(200,0)
+    items.push(fence)
+
 }
 
 function DrawScene() {

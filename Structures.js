@@ -141,7 +141,40 @@ class Ground extends Structure {
     }
 }
 
-// Fence (Array of rectangles)
+class FenceComponent extends Structure {
+    constructor() {
+        super();
+        this.Reset();
+
+        let hue = Math.random()*360
+
+        let post = new Rectangle();
+        post.fillColor = "hsl(" + hue + ",100%,50%)"
+        post.lineColor = "hsl(" + hue + ",100%,20%)"
+        post.Scale(3,9)
+        post.Translate(-20,0)
+
+        let topPost = new Rectangle();
+        topPost.fillColor = "hsl(" + (hue+10) + ",100%,50%)"
+        topPost.lineColor = "hsl(" + (hue+10) + ",100%,20%)"
+        topPost.Scale(9,3)
+        topPost.Translate(35,25)
+        this.structures.push(topPost)
+
+        let bottomPost = new Rectangle();
+        bottomPost.fillColor = "hsl(" + (hue-10) + ",100%,50%)"
+        bottomPost.lineColor = "hsl(" + (hue-10) + ",100%,20%)"
+        bottomPost.Scale(9,3)
+        bottomPost.Translate(35,-15)
+        this.structures.push(bottomPost)
+
+        this.structures.push(post)
+    }
+
+    Reset(){
+        super.Reset()
+    }
+}
 
 class House extends Structure {
     constructor() {
