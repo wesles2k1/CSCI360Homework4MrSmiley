@@ -149,7 +149,6 @@ class Star extends Shape {
       }
       CTX.lineTo(this.#points[0].x,this.#points[0].y);
       CTX.closePath();
-      CTX.fill();
       CTX.stroke();
    }
 }
