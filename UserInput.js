@@ -32,7 +32,7 @@ function UserInput(event){
                 worldTx = XMIN;
             }
             break;
-        case 's':
+        case 'd':
             if(worldTx - SCROLL_RATE_WORLD > XMAX) {   // May want to generalize to work with different window sizes
                 worldTx -= SCROLL_RATE_WORLD;
                 skyTx -= SCROLL_RATE_SKY;
@@ -44,12 +44,13 @@ function UserInput(event){
             if (timer == null) {
                 StartTicks();
             }
+            stopMove = false;
             break;
         case 'h':
             if (timer != null) {
                 StopTicks();
             }
-            stopMove = false;
+            stopMove = true;
             break;
         case 'i':   //DEBUG KEY
             alert("(DEBUGGER) 'i' has been pressed.");
