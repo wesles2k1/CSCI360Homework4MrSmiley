@@ -18,7 +18,7 @@ function BuildScene() {
 
     let swing = new Swing();
         swing.Translate(200, 25);
-        swing.Scale(0.75, 0.75);
+        swing.Scale(0.75);
         items.push(swing);
 
     let couple = new Couple();

@@ -30,7 +30,7 @@ class Shape {
        }
     }
 
-    Scale(sx,sy) {
+    Scale(sx,sy=sx) {
         this.scaleX = sx;
         this.scaleY = sy;
     }
