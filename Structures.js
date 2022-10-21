@@ -7,7 +7,7 @@ class Person extends Structure {
     rightEye;
     leftEye;
     girl = false;
-    skirtColor
+    skirtColor = "pink"
 
     constructor() {
         super();
@@ -67,13 +67,13 @@ class Person extends Structure {
         if(this.girl){
             CTX.save();
                 CTX.scale(1.5,1.5);
-                CTX.translate(0,12)
+                CTX.translate(0,5)
                 CTX.beginPath()
                 CTX.moveTo(0,0)
-                CTX.lineTo(-30*Math.cos(4*Math.PI/3),30*Math.sin(4*Math.PI/3))
-                CTX.lineTo(30*Math.cos(4*Math.PI/3),30*Math.sin(4*Math.PI/3))
+                CTX.lineTo(-30*Math.cos(4*Math.PI/3),25*Math.sin(4*Math.PI/3))
+                CTX.lineTo(30*Math.cos(4*Math.PI/3),25*Math.sin(4*Math.PI/3))
                 CTX.moveTo(0,0)
-                CTX.fillStyle = "pink"
+                CTX.fillStyle = this.skirtColor
                 CTX.fill()
             CTX.restore();
         }        
@@ -361,12 +361,10 @@ class TeeterTotter extends Structure {
 
         let person1 = new Person();
         person1.Scale(0.5,0.5);
-        person1.Translate(0,0);
         this.structures.push(person1);
         
         let person2 = new Person();
         person2.Scale(0.5,0.5);
-        person2.Translate(0,0);
         this.structures.push(person2);
     }
 
@@ -391,16 +389,17 @@ class TeeterTotter extends Structure {
             CTX.save();
                 CTX.translate(50, 0);
                 CTX.rotate(-this.#fulcrumTheta);
+                //CTX.lineWidth = 1/((this.structures[1].scaleX+this.structures[1].scaleY)/2);
                 this.structures[1].Display();
             CTX.restore();
             CTX.save();
                 CTX.translate(-50, 0);
                 CTX.rotate(-this.#fulcrumTheta);
+                //CTX.lineWidth = 1/((this.structures[2].scaleX+ this.structures[2].scaleY)/2);
                 this.structures[2].Display();
             CTX.restore();
         CTX.restore();
 
-        CTX.stroke();
     }
 
     Tick() {
@@ -445,6 +444,7 @@ class Swing extends Structure {
     
     DrawStructure(){
         CTX.beginPath()
+        //CTX.lineWidth = 1/((this.scaleX+this.scaleY)/2);
 
         // Legs
         CTX.moveTo(0,150)
@@ -469,8 +469,6 @@ class Swing extends Structure {
                 this.structures[0].Display();
             CTX.restore();
         CTX.restore();
-
-        CTX.stroke();
     }
 
     Tick() {
@@ -629,22 +627,29 @@ class Couple extends Structure {
                 x: this.translateX + (movementRemaining * Math.cos(direction)),
                 y: this.translateY + (movementRemaining * Math.sin(direction))
             }
+
             let moveDistance = Math.sqrt(
                 Math.pow(currentPoint.x - moveTo.x, 2) +
                 Math.pow(currentPoint.y - moveTo.y, 2));
+
             if(moveDistance < this.#currentNextPointsDistance) {    // Determines whether to translate to nextPoint or moveTo
                 this.translateX = moveTo.x, // Note: Not calling this.Translate(x,y) because it will reset the anchor, we don't want that!
                 this.translateY = moveTo.y;
+
                 movementRemaining = 0;
             } else {
                 let distanceCovered = Math.sqrt(
                     Math.pow(nextPoint.x, 2) +
                     Math.pow(nextPoint.y, 2));
+                
                 this.translateX = nextPoint.x;
                 this.translateY = nextPoint.y;
+
                 movementRemaining -= distanceCovered;
+
                 this.#currentPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
                 this.#nextPointIndex = this.#IncrementPathIndex(this.#nextPointIndex);
+
                 this.#currentNextPointsDistance = Math.sqrt(
                     Math.pow(this.#path[this.#currentPointIndex].x - this.#path[this.#nextPointIndex].x, 2) +
                     Math.pow(this.#path[this.#currentPointIndex].y - this.#path[this.#nextPointIndex].y, 2));
