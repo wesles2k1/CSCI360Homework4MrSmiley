@@ -493,6 +493,7 @@ class Couple extends Structure {
     #currentPointIndex;
     #nextPointIndex;
     #currentNextPointsDistance;
+    #percentAlongPath;
     
     constructor() {
         super();
@@ -513,6 +514,7 @@ class Couple extends Structure {
         this.#anchor = {x: 0, y: 0};
         this.translateX += this.#path[0].x + this.#anchor.x;
         this.translateY += this.#path[0].y + this.#anchor.y;
+        this.#percentAlongPath = 0;
         
         let person1 = new Person();
         person1.Scale(0.5,0.5);
@@ -574,7 +576,46 @@ class Couple extends Structure {
         }
     }
 
+    // t = this.#percentAlongPath
+    // dt = movementRemaining
+    // alpha = currentPoint
+    // beta = nextPoint
     Tick() {
+        let movementRemaining = (this.#movementSpeed / this.#currentNextPointsDistance);
+        while(movementRemaining > 0) {
+            let currentPoint = {
+                x: this.#anchor.x + this.#path[this.#currentPointIndex].x,
+                y: this.#anchor.y + this.#path[this.#currentPointIndex].y
+            }
+            let nextPoint = {
+                x: this.#anchor.x + this.#path[this.#nextPointIndex].x,
+                y: this.#anchor.y + this.#path[this.#nextPointIndex].y
+            }
+            if(this.#percentAlongPath + movementRemaining < 1) {    // Determines whether to translate to nextPoint or moveTo
+                this.#percentAlongPath += movementRemaining;
+                this.translateX = LERP(currentPoint.x, nextPoint.x, this.#percentAlongPath); // Note: Not calling this.Translate(x,y) because it will reset the anchor, we don't want that!
+                this.translateY = LERP(currentPoint.y, nextPoint.y, this.#percentAlongPath);
+                movementRemaining = 0;
+            } else {
+                movementRemaining = (1 - this.#percentAlongPath);
+                this.#percentAlongPath = 0;
+                this.translateX = nextPoint.x;
+                this.translateY = nextPoint.y;
+ 
+                this.#currentPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
+                this.#nextPointIndex = this.#IncrementPathIndex(this.#nextPointIndex);
+ 
+                this.#currentNextPointsDistance = Math.sqrt(
+                    Math.pow(this.#path[this.#currentPointIndex].x - this.#path[this.#nextPointIndex].x, 2) +
+                    Math.pow(this.#path[this.#currentPointIndex].y - this.#path[this.#nextPointIndex].y, 2));
+            }
+        }
+    }
+
+    // This version of Tick() was done before I knew about LERP.
+    // It's far messier and more complicated than the LERP version,
+    // but it still works fine as far as I know.    ~Wesley
+    /*Tick() {
         // Don't look at this code unless you want to lose
         // your sanity and perish instantly  ~Wesley
         // Ye who wish to live, turn back now
@@ -655,7 +696,7 @@ class Couple extends Structure {
                     Math.pow(this.#path[this.#currentPointIndex].y - this.#path[this.#nextPointIndex].y, 2));
             }
         }
-    }
+    }*/
 
     #IncrementPathIndex(index) {
         if(index + 1 >= this.#path.length) {
@@ -672,4 +713,10 @@ class Couple extends Structure {
 
 function RangeOfCircle(number){
     return number-(360*Math.floor(number/360))
+}
+
+function LERP(current, target, t) {
+    t = Math.min(t, 1);
+    t = Math.max(0, t);
+    return (current * (1 - t) + (target * t));
 }
