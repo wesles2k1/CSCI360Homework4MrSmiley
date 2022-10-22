@@ -488,11 +488,15 @@ class Swing extends Structure {
 
 class Couple extends Structure {
     #path;
+    #reversePath;
     #movementSpeed;
     #anchor;
     #currentPointIndex;
     #nextPointIndex;
+    #currentPoint;
+    #nextPoint
     #currentNextPointsDistance;
+    #percentAlongPath;
     
     constructor() {
         super();
@@ -504,15 +508,15 @@ class Couple extends Structure {
             {x: 25, y: -25},
             {x: 25, y: 25}
         ]
+        this.#reversePath = false;
         this.#movementSpeed = 1;
+        this.#anchor = {x: 0, y: 0};
         this.#currentPointIndex = 0;
         this.#nextPointIndex = 1;
-        this.#currentNextPointsDistance = Math.sqrt(
-            Math.pow(this.#path[this.#currentPointIndex].x - this.#path[this.#nextPointIndex].x, 2) +
-            Math.pow(this.#path[this.#currentPointIndex].y - this.#path[this.#nextPointIndex].y, 2));
-        this.#anchor = {x: 0, y: 0};
+        this.#UpdateCurrentAndNextPoints();
         this.translateX += this.#path[0].x + this.#anchor.x;
         this.translateY += this.#path[0].y + this.#anchor.y;
+        this.#percentAlongPath = 0;
         
         let person1 = new Person();
         person1.Scale(0.5,0.5);
@@ -535,6 +539,8 @@ class Couple extends Structure {
         
         this.translateX = this.#path[this.#currentPointIndex].x + this.#anchor.x;
         this.translateY = this.#path[this.#currentPointIndex].y + this.#anchor.y;
+        
+        this.#UpdateCurrentAndNextPoints();
     }
     
     //Takes in a height that assumes a Person is 10 units tall by default.
@@ -566,47 +572,69 @@ class Couple extends Structure {
             }
             this.#currentPointIndex = newStartPoint;
             this.#nextPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
-            this.#currentNextPointsDistance = Math.sqrt(
-                Math.pow(this.#path[this.#currentPointIndex].x - this.#path[this.#nextPointIndex].x, 2) +
-                Math.pow(this.#path[this.#currentPointIndex].y - this.#path[this.#nextPointIndex].y, 2));
+            this.#UpdateCurrentAndNextPoints();
             this.translateX = this.#path[this.#currentPointIndex].x;
             this.translateY = this.#path[this.#currentPointIndex].y;
         }
     }
 
+    // If no parameter is passed, this.#reversePath is flipped
+    ReversePath(reverse = !this.#reversePath) {
+        this.#reversePath = reverse;
+        if(!this.#reversePath) {
+            this.#nextPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
+        } else {
+            this.#nextPointIndex = this.#DecrementPathIndex(this.#currentPointIndex);
+        }
+        this.#UpdateCurrentAndNextPoints();
+    }
+
     Tick() {
+        // t = this.#percentAlongPath
+        // dt = movementRemaining
+        // alpha = currentPoint
+        // beta = nextPoint
+        let movementRemaining = (this.#movementSpeed / this.#currentNextPointsDistance);
+        while(movementRemaining > 0) {
+            if(this.#percentAlongPath + movementRemaining < 1) {    // Determines whether to translate to nextPoint or moveTo
+                this.#percentAlongPath += movementRemaining;
+                this.translateX = LERP(this.#currentPoint.x, this.#nextPoint.x, this.#percentAlongPath); // Note: Not calling this.Translate(x,y) because it will reset the anchor, we don't want that!
+                this.translateY = LERP(this.#currentPoint.y, this.#nextPoint.y, this.#percentAlongPath);
+                movementRemaining = 0;
+            } else {
+                movementRemaining = (1 - this.#percentAlongPath);
+                this.#percentAlongPath = 0;
+                this.translateX = this.#nextPoint.x;
+                this.translateY = this.#nextPoint.y;
+                
+                if(!this.#reversePath) {
+                    this.#currentPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
+                    this.#nextPointIndex = this.#IncrementPathIndex(this.#nextPointIndex);
+                } else {
+                    this.#currentPointIndex = this.#DecrementPathIndex(this.#currentPointIndex);
+                    this.#nextPointIndex = this.#DecrementPathIndex(this.#nextPointIndex);
+                }
+                this.#UpdateCurrentAndNextPoints();
+            }
+        }
+    }
+
+    // This version of Tick() was done before I knew about LERP.
+    // It's far messier and more complicated than the LERP version,
+    // but it still works fine as far as I can tell.    ~Wesley
+    /*Tick() {
         // Don't look at this code unless you want to lose
         // your sanity and perish instantly  ~Wesley
         // Ye who wish to live, turn back now
-        // (Should probably be split into GetDirection and
-        // MoveCouple functions, but that's too much of a
-        // pain right now and this works)   ~Wesley
 
         let movementRemaining = this.#movementSpeed;
         while(movementRemaining > 0) {
-            // Gets coordinates of currentPoint and nextPoint
-                // Works for now, but recalculates every tick, even
-                // though they'll be the same most of the time.
-                // These points really only change when the next
-                // and current points cycle over.
-                // currentPoint and nextPoint should probably be
-                // member data instead of local to this function.
-                // Too hard to figure out right now tho ~Wesley
-            let currentPoint = {
-                x: this.#anchor.x + this.#path[this.#currentPointIndex].x,
-                y: this.#anchor.y + this.#path[this.#currentPointIndex].y
-            }
-            let nextPoint = {
-                x: this.#anchor.x + this.#path[this.#nextPointIndex].x,
-                y: this.#anchor.y + this.#path[this.#nextPointIndex].y
-            }
-
             // Calculates angle from currentPoint to nextPoint, reletive to the X-axis
             let direction;
-            if(nextPoint.x - currentPoint.x == 0) { // Handles undefined inverse tangent values (90 and 270 degrees)
-                if(nextPoint.y - currentPoint.y > 0) {
+            if(this.#nextPoint.x - this.#currentPoint.x == 0) { // Handles undefined inverse tangent values (90 and 270 degrees)
+                if(this.#nextPoint.y - this.#currentPoint.y > 0) {
                     direction = Math.PI / 2;    // Up/90 Degrees
-                } else if(nextPoint.y - currentPoint.y < 0) {
+                } else if(this.#nextPoint.y - this.#currentPoint.y < 0) {
                     direction = 3 * Math.PI / 2;    // Down/270 Degrees
                 } else {    // Only occurs if given a path of size 1; This prevents the program from breaking
                     direction = 0;
@@ -614,10 +642,10 @@ class Couple extends Structure {
                 }
             } else {    // Calculates angle
                 direction = Math.atan(
-                    (nextPoint.y - currentPoint.y) /
-                    (nextPoint.x - currentPoint.x)
+                    (this.#nextPoint.y - this.#currentPoint.y) /
+                    (this.#nextPoint.x - this.#currentPoint.x)
                 );
-                if(nextPoint.x - currentPoint.x < 0) {  // Adjusts angle if it's supposed to be from 90 to 270
+                if(this.#nextPoint.x - this.#currentPoint.x < 0) {  // Adjusts angle if it's supposed to be from 90 to 270
                     direction += Math.PI;
                 }
             }
@@ -627,34 +655,41 @@ class Couple extends Structure {
                 x: this.translateX + (movementRemaining * Math.cos(direction)),
                 y: this.translateY + (movementRemaining * Math.sin(direction))
             }
-
             let moveDistance = Math.sqrt(
-                Math.pow(currentPoint.x - moveTo.x, 2) +
-                Math.pow(currentPoint.y - moveTo.y, 2));
+                Math.pow(this.#currentPoint.x - moveTo.x, 2) +
+                Math.pow(this.#currentPoint.y - moveTo.y, 2));
 
             if(moveDistance < this.#currentNextPointsDistance) {    // Determines whether to translate to nextPoint or moveTo
                 this.translateX = moveTo.x, // Note: Not calling this.Translate(x,y) because it will reset the anchor, we don't want that!
                 this.translateY = moveTo.y;
-
                 movementRemaining = 0;
             } else {
                 let distanceCovered = Math.sqrt(
-                    Math.pow(nextPoint.x, 2) +
-                    Math.pow(nextPoint.y, 2));
-                
-                this.translateX = nextPoint.x;
-                this.translateY = nextPoint.y;
-
+                    Math.pow(this.#nextPoint.x, 2) +
+                    Math.pow(this.#nextPoint.y, 2));
+                this.translateX = this.#nextPoint.x;
+                this.translateY = this.#nextPoint.y;
                 movementRemaining -= distanceCovered;
 
                 this.#currentPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
                 this.#nextPointIndex = this.#IncrementPathIndex(this.#nextPointIndex);
-
-                this.#currentNextPointsDistance = Math.sqrt(
-                    Math.pow(this.#path[this.#currentPointIndex].x - this.#path[this.#nextPointIndex].x, 2) +
-                    Math.pow(this.#path[this.#currentPointIndex].y - this.#path[this.#nextPointIndex].y, 2));
+                this.#UpdateCurrentAndNextPoints();
             }
         }
+    }*/
+
+    #UpdateCurrentAndNextPoints() {
+        this.#currentPoint = {
+            x: this.#anchor.x + this.#path[this.#currentPointIndex].x,
+            y: this.#anchor.y + this.#path[this.#currentPointIndex].y
+        }
+        this.#nextPoint = {
+            x: this.#anchor.x + this.#path[this.#nextPointIndex].x,
+            y: this.#anchor.y + this.#path[this.#nextPointIndex].y
+        }
+        this.#currentNextPointsDistance = Math.sqrt(
+            Math.pow(this.#path[this.#currentPointIndex].x - this.#path[this.#nextPointIndex].x, 2) +
+            Math.pow(this.#path[this.#currentPointIndex].y - this.#path[this.#nextPointIndex].y, 2));
     }
 
     #IncrementPathIndex(index) {
@@ -665,6 +700,15 @@ class Couple extends Structure {
         }
         return(index)
     }
+
+    #DecrementPathIndex(index) {
+        if(index == 0) {
+            index = (this.#path.length - 1);
+        } else {
+            index--;
+        }
+        return(index)
+    }
 }
 
 
@@ -672,4 +716,10 @@ class Couple extends Structure {
 
 function RangeOfCircle(number){
     return number-(360*Math.floor(number/360))
+}
+
+function LERP(current, target, t) {
+    t = Math.min(t, 1);
+    t = Math.max(0, t);
+    return (current * (1 - t) + (target * t));
 }
