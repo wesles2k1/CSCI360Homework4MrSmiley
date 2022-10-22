@@ -488,6 +488,7 @@ class Swing extends Structure {
 
 class Couple extends Structure {
     #path;
+    #reversePath;
     #movementSpeed;
     #anchor;
     #currentPointIndex;
@@ -507,6 +508,7 @@ class Couple extends Structure {
             {x: 25, y: -25},
             {x: 25, y: 25}
         ]
+        this.#reversePath = false;
         this.#movementSpeed = 1;
         this.#anchor = {x: 0, y: 0};
         this.#currentPointIndex = 0;
@@ -576,6 +578,17 @@ class Couple extends Structure {
         }
     }
 
+    // If no parameter is passed, this.#reversePath is flipped
+    ReversePath(reverse = !this.#reversePath) {
+        this.#reversePath = reverse;
+        if(!this.#reversePath) {
+            this.#nextPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
+        } else {
+            this.#nextPointIndex = this.#DecrementPathIndex(this.#currentPointIndex);
+        }
+        this.#UpdateCurrentAndNextPoints();
+    }
+
     Tick() {
         // t = this.#percentAlongPath
         // dt = movementRemaining
@@ -593,9 +606,14 @@ class Couple extends Structure {
                 this.#percentAlongPath = 0;
                 this.translateX = this.#nextPoint.x;
                 this.translateY = this.#nextPoint.y;
- 
-                this.#currentPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
-                this.#nextPointIndex = this.#IncrementPathIndex(this.#nextPointIndex);
+                
+                if(!this.#reversePath) {
+                    this.#currentPointIndex = this.#IncrementPathIndex(this.#currentPointIndex);
+                    this.#nextPointIndex = this.#IncrementPathIndex(this.#nextPointIndex);
+                } else {
+                    this.#currentPointIndex = this.#DecrementPathIndex(this.#currentPointIndex);
+                    this.#nextPointIndex = this.#DecrementPathIndex(this.#nextPointIndex);
+                }
                 this.#UpdateCurrentAndNextPoints();
             }
         }
@@ -679,6 +697,15 @@ class Couple extends Structure {
             index = 0;
         } else {
             index++;
+        }
+        return(index)
+    }
+
+    #DecrementPathIndex(index) {
+        if(index == 0) {
+            index = (this.#path.length - 1);
+        } else {
+            index--;
         }
         return(index)
     }
