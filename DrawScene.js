@@ -17,6 +17,14 @@ let paths = {
     ],
     still : [
         {x: 0, y:0}
+    ],
+    figureeight : [
+        {x: -50, y: 0},
+        {x: -25, y: 25},
+        {x: 25, y: -25},
+        {x: 50, y: 0},
+        {x: 25, y: 25},
+        {x: -25, y: -25}
     ]
 }
 function BuildScene() {
@@ -47,7 +55,7 @@ function BuildScene() {
         couple.SetEyeColor(1,"red");
         couple.SetHeight(1,10);
         couple.SetSkirt(2,"pink")
-        couple.SetPath(paths.diamond, -4);
+        couple.SetPath(paths.figureeight, -4);
         couple.Translate(RoundInSteps(Math.random()*2500, 17), 0);
         items.push(couple);
 
